@@ -14,6 +14,8 @@ Verdict = Literal[
 
 Recommendation = Literal["jatka", "kehita_lisaa", "hylkaa"]
 
+RiskPriority = Literal["high", "medium", "low"]
+
 
 class Message(BaseModel):
     role: Literal["user", "assistant"]
@@ -42,8 +44,31 @@ class AreaProgress(BaseModel):
     evaluations: list[Evaluation] = Field(default_factory=list)
 
 
+class AreaEvaluationSummary(BaseModel):
+    area_id: str
+    area_label: str
+    verdict: Verdict
+    scores: list[CriterionScore]
+    weaknesses: list[str]
+
+
+class RiskRegisterEntry(BaseModel):
+    description: str
+    kind: Literal["assumption", "risk"]
+    priority: RiskPriority
+
+
+class ReportNarrative(BaseModel):
+    concept_document_markdown: str
+    risk_register: list[RiskRegisterEntry]
+    recommendation: Recommendation
+    recommendation_rationale: str
+
+
 class Report(BaseModel):
     concept_document_markdown: str
+    evaluation_profile: list[AreaEvaluationSummary]
+    risk_register: list[RiskRegisterEntry]
     recommendation: Recommendation
     recommendation_rationale: str
 

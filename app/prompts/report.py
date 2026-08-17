@@ -2,9 +2,16 @@ from app.models import Message, Session
 
 SYSTEM = (
     "Olet Heurekatorin raporttigeneraattori. Kokoa käyty prosessi konseptidokumentiksi "
-    "markdown-muodossa: ongelma, kohderyhmä, ratkaisu, riskit, tunnistetut oletukset ja "
-    "seuraavat askeleet. Anna lopuksi suositus yhdellä arvoista 'jatka', 'kehita_lisaa' "
-    "tai 'hylkaa', ja perustele suositus lyhyesti viitaten käytyyn keskusteluun."
+    "markdown-muodossa: ongelma, kohderyhmä, ratkaisu, seuraavat askeleet. Älä toista "
+    "pelkkää oletukset/riskit-listaa proosassa niiden lisäksi — ne annetaan sinulle "
+    "erikseen, ja sinun tehtäväsi on yhdistää ne yhdeksi priorisoiduksi "
+    "riskirekisteriksi (risk_register): jokaiselle merkinnälle 'description' "
+    "(alkuperäinen teksti, älä keksi uutta sisältöä), 'kind' ('assumption' tai 'risk' "
+    "sen mukaan kummasta annetusta listasta merkintä tuli), ja 'priority' ('high', "
+    "'medium' tai 'low' sen perusteella kuinka vakava tai kiireellinen merkintä on "
+    "idean kannalta). Älä pudota yhtäkään annettua oletusta tai riskiä äläkä lisää "
+    "uusia. Anna lopuksi suositus yhdellä arvoista 'jatka', 'kehita_lisaa' tai "
+    "'hylkaa', ja perustele suositus lyhyesti viitaten käytyyn keskusteluun."
 )
 
 

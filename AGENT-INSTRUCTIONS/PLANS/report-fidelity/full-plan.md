@@ -41,8 +41,13 @@ does not need a `DECISIONS/LOG.md` row — it needs this plan.
 
 | Phase | Title | Status | Gate level | Depends on | Phase file | Exit state | Move-on gate |
 |---|---|---|---|---|---|---|---|
-| P1 | Structured evaluation profile + risk register (backend) | next | standard | - | - (detail when selected) | `Report` carries real per-criterion scores and a prioritized risk register; report prompt receives `session.areas` | manual API verification (curl) shows the new fields populated and non-empty on a real session |
+| P1 | Structured evaluation profile + risk register (backend) | active | full | - | `phases/P1-structured-evaluation-profile.md` | `Report` carries real per-criterion scores and a prioritized risk register; report prompt receives `session.areas` | manual API verification (curl) shows the new fields populated and non-empty on a real session |
 | P2 | Render the new fields in the chat UI | planned | standard | P1 | - | user sees the evaluation profile and prioritized risks in the browser, not just the recommendation + raw markdown | human browser verification |
+
+Gate level for P1 raised from the scoping pass's first guess (`standard`) to `full` while
+detailing: it changes the `Report` API shape P2 (and the frontend) depends on, and it
+changes the report-generation LLM call's structured-output contract
+(`PLAN-PHASE-DETAILING.md` §3a).
 
 ## Implementation chunks + orchestration breakpoints
 

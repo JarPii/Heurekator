@@ -3,7 +3,15 @@ import uuid
 from app.core.criteria import AREAS, MAX_ATTEMPTS_PER_AREA
 from app.core.store import SessionStore
 from app.llm.base import LLMClient
-from app.models import AreaProgress, Evaluation, Message, Report, Session
+from app.models import (
+    AreaEvaluationSummary,
+    AreaProgress,
+    Evaluation,
+    Message,
+    Report,
+    ReportNarrative,
+    Session,
+)
 from app.prompts.evaluation import build_evaluation_prompt
 from app.prompts.question import build_question_prompt
 from app.prompts.report import build_report_prompt
@@ -83,4 +91,36 @@ class Engine:
 
     def _generate_report(self, session: Session) -> Report:
         system, messages = build_report_prompt(session)
-        return self._llm.complete_structured(system, messages, Report)
+        narrative = self._llm.complete_structured(system, messages, ReportNarrative)
+        return Report(
+            concept_document_markdown=narrative.concept_document_markdown,
+            evaluation_profile=self._build_evaluation_profile(session),
+            risk_register=narrative.risk_register,
+            recommendation=narrative.recommendation,
+            recommendation_rationale=narrative.recommendation_rationale,
+        )
+
+    @staticmethod
+    def _build_evaluation_profile(session: Session) -> list[AreaEvaluationSummary]:
+        progress_by_area_id = {progress.area_id: progress for progress in session.areas}
+        profile: list[AreaEvaluationSummary] = []
+        for area in AREAS:
+            progress = progress_by_area_id.get(area.id)
+            if progress is None or not progress.evaluations:
+                continue
+            last_evaluation = progress.evaluations[-1]
+            weaknesses = [
+                f"{score.criterion}: {score.comment}"
+                for score in last_evaluation.scores
+                if score.score <= 3
+            ]
+            profile.append(
+                AreaEvaluationSummary(
+                    area_id=area.id,
+                    area_label=area.label,
+                    verdict=last_evaluation.verdict,
+                    scores=last_evaluation.scores,
+                    weaknesses=weaknesses,
+                )
+            )
+        return profile

@@ -30,6 +30,12 @@ definition, target group, necessity, alternatives, assumptions, sustainability, 
 defined as the `AREAS` list in `app/core/criteria.py`, each entry carrying an `id`, a
 `label`, and a seed question.
 
+### AreaEvaluationSummary
+The per-[[Area]] entry in a [[Report]]'s evaluation profile: that area's final
+[[Verdict]], its [[CriterionScore]]s from the last attempt made on it, and the subset of
+those scores (score <= 3) rendered as named weaknesses (`app/models.py`,
+`app/core/engine.py::Engine._build_evaluation_profile`).
+
 ### AreaProgress
 The record of how far a [[Session]] has gotten on one [[Area]]: the number of attempts
 made, whether it is resolved, and every [[Evaluation]] produced for it
@@ -62,9 +68,19 @@ One turn in a [[Session]]'s history: a `role` (`user` or `assistant`) and a `con
 string (`app/models.py`).
 
 ### Report
-The concept document, a recommendation (`jatka`, `kehita_lisaa`, or `hylkaa`), and a
-rationale that an [[LLMClient]] generates once every [[Area]] in a [[Session]] is
-resolved (`app/models.py`, `app/prompts/report.py`).
+The concept document, an evaluation profile (one [[AreaEvaluationSummary]] per
+[[Area]]), a prioritized risk register (a list of [[RiskRegisterEntry]]), a
+recommendation (`jatka`, `kehita_lisaa`, or `hylkaa`), and a rationale, produced once
+every Area in a [[Session]] is resolved. The evaluation profile is assembled directly
+from already-collected [[Evaluation]] scores; the concept document, risk register, and
+recommendation come from one [[LLMClient]] call (`app/models.py`,
+`app/prompts/report.py`, `app/core/engine.py::Engine._generate_report`).
+
+### RiskRegisterEntry
+One prioritized entry in a [[Report]]'s risk register: a description carried over
+verbatim from a [[Session]]'s accumulated assumptions or risks, tagged with which of the
+two it came from and a `high`/`medium`/`low` priority assigned by the
+report-generating [[LLMClient]] (`app/models.py`, `app/prompts/report.py`).
 
 ### Session
 The full state of one idea working through the Heurekator process: the idea text, the
