@@ -43,10 +43,10 @@ def submit_answer(session_id: str, req: AnswerRequest):
     except FileNotFoundError:
         raise HTTPException(status_code=404, detail="Sessiota ei löytynyt.")
 
-    session, question, report = _engine.submit_answer(session, req.answer)
+    session, question, report, verdict = _engine.submit_answer(session, req.answer)
     if report is not None:
         return {"done": True, "report": report.model_dump()}
-    return {"done": False, "question": question, "area_index": session.current_area_index}
+    return {"done": False, "question": question, "area_index": session.current_area_index, "verdict": verdict}
 
 
 @app.get("/api/sessions/{session_id}")

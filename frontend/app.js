@@ -15,6 +15,15 @@ const RECOMMENDATION_LABELS = {
 const PRIORITY_ORDER = { high: 0, medium: 1, low: 2 };
 const PRIORITY_LABELS = { high: "Korkea", medium: "Keskitaso", low: "Matala" };
 const RISK_KIND_LABELS = { risk: "Riskit", assumption: "Oletukset" };
+const AREA_LABELS = [
+  "Ongelman määrittely",
+  "Kohderyhmä",
+  "Tarpeellisuus",
+  "Vaihtoehdot",
+  "Oletukset",
+  "Kestävyys",
+  "Riskit",
+];
 
 const ideaForm = document.getElementById("idea-form");
 const chat = document.getElementById("chat");
@@ -39,7 +48,7 @@ startBtn.addEventListener("click", async () => {
     state.sessionId = data.session_id;
     ideaForm.hidden = true;
     chat.hidden = false;
-    addMessage("assistant", data.question);
+    addMessage("assistant", data.question, data.area_index);
   } catch (err) {
     alert(`Virhe session aloituksessa: ${err.message}`);
   } finally {
@@ -52,7 +61,7 @@ answerForm.addEventListener("submit", async (e) => {
   const answer = answerInput.value.trim();
   if (!answer || !state.sessionId) return;
 
-  addMessage("user", answer);
+  const userMessageEl = addMessage("user", answer);
   answerInput.value = "";
   setFormDisabled(true);
 
@@ -70,7 +79,8 @@ answerForm.addEventListener("submit", async (e) => {
       reportEl.hidden = false;
       renderReport(data.report);
     } else {
-      addMessage("assistant", data.question);
+      stampVerdict(userMessageEl, data.verdict);
+      addMessage("assistant", data.question, data.area_index);
     }
   } catch (err) {
     addMessage("assistant", `[Virhe: ${err.message}]`);
@@ -84,12 +94,34 @@ function setFormDisabled(disabled) {
   answerForm.querySelector("button").disabled = disabled;
 }
 
-function addMessage(role, text) {
+function addMessage(role, text, areaIndex) {
   const div = document.createElement("div");
   div.className = `message ${role}`;
-  div.textContent = text;
+  if (role === "assistant" && areaIndex !== undefined) {
+    const label = document.createElement("div");
+    label.className = "area-label";
+    label.textContent = formatAreaLabel(areaIndex);
+    div.appendChild(label);
+  }
+  const body = document.createElement("div");
+  body.className = "message-text";
+  body.textContent = text;
+  div.appendChild(body);
   messagesEl.appendChild(div);
-  messagesEl.scrollTop = messagesEl.scrollHeight;
+  div.scrollIntoView({ behavior: "smooth", block: "end" });
+  return div;
+}
+
+function formatAreaLabel(areaIndex) {
+  const n = String(areaIndex + 1).padStart(2, "0");
+  return `ALUE ${n}/07 — ${AREA_LABELS[areaIndex].toUpperCase()}`;
+}
+
+function stampVerdict(messageEl, verdict) {
+  const stamp = document.createElement("div");
+  stamp.className = `verdict-stamp verdict-${verdict}`;
+  stamp.textContent = VERDICT_LABELS[verdict] || verdict;
+  messageEl.appendChild(stamp);
 }
 
 function renderReport(report) {

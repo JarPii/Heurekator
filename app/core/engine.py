@@ -11,6 +11,7 @@ from app.models import (
     Report,
     ReportNarrative,
     Session,
+    Verdict,
 )
 from app.prompts.evaluation import build_evaluation_prompt
 from app.prompts.question import build_question_prompt
@@ -39,7 +40,7 @@ class Engine:
 
     def submit_answer(
         self, session: Session, answer: str
-    ) -> tuple[Session, str | None, Report | None]:
+    ) -> tuple[Session, str | None, Report | None, Verdict]:
         if session.status == "done":
             raise ValueError("Sessio on jo päättynyt.")
 
@@ -66,19 +67,19 @@ class Engine:
         if not resolved:
             question = self._ask_next_question(session, evaluation)
             self._store.save(session)
-            return session, question, None
+            return session, question, None, evaluation.verdict
 
         if session.current_area_index + 1 < len(AREAS):
             session.current_area_index += 1
             question = self._ask_next_question(session)
             self._store.save(session)
-            return session, question, None
+            return session, question, None, evaluation.verdict
 
         report = self._generate_report(session)
         session.report = report
         session.status = "done"
         self._store.save(session)
-        return session, None, report
+        return session, None, report, evaluation.verdict
 
     def _ask_next_question(
         self, session: Session, last_evaluation: Evaluation | None = None
