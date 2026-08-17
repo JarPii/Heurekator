@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="fi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Heurekator</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+<main id="app">
+  <h1>Heurekator</h1>
+  <p class="tagline">The machine that forces eureka moments.</p>
+
+  <section id="idea-form">
+    <label for="idea">Kuvaa ideasi</label>
+    <textarea id="idea" rows="4" placeholder="Mikä on ideasi?"></textarea>
+    <button id="start-btn">Aloita</button>
+  </section>
+
+  <section id="chat" hidden>
+    <div id="messages"></div>
+    <form id="answer-form">
+      <textarea id="answer" rows="3" placeholder="Vastauksesi..."></textarea>
+      <button type="submit">Lähetä</button>
+    </form>
+  </section>
+
+  <section id="report" hidden></section>
+</main>
+<script src="/app.js"></script>
+</body>
+</html>
