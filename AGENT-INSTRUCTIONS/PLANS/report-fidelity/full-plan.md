@@ -6,7 +6,8 @@
 > `app/core/engine.py`), and how it is shown (`frontend/`).
 > **Out of scope:** the Socratic question/evaluation loop itself (`app/core/engine.py`
 > ask/evaluate/adapt logic), the criteria set (`app/core/criteria.py`), auth, multi-user
-> session listing (a separate, already-known gap — see `../../PROJECT.md` §4.1).
+> session listing (a separate, already-known gap — see `../../PROJECT.md` §2, "Known
+> gap: no session listing").
 > **Target:** internal-only prototype, matching `Visio.md`'s own scope (§6) — not
 > production-grade.
 >
@@ -60,8 +61,8 @@ changes the report-generation LLM call's structured-output contract
 
 ## How to implement this plan
 
-1. Read `../../PROJECT.md` §2 (layout) and §4 (hard invariants — especially §4.4: LLM
-   output is trusted without human review; this plan does not add a review gate, it
+1. Read `../../PROJECT.md` §2 (layout) and §4 (hard invariants — especially invariant 4:
+   LLM output is trusted without human review; this plan does not add a review gate, it
    only makes the LLM's existing output visible and structured).
 2. Never invent a field, route, or config key. If `Evaluation.scores`' criterion names
    turn out to be inconsistent across areas (they are free-text, not an enum — see
@@ -91,9 +92,9 @@ changes the report-generation LLM call's structured-output contract
 3. `app/core/criteria.py` (the fixed 7 areas, `EVALUATION_CRITERIA` names) stays
    untouched — this plan consumes that data, it does not change what is asked or how
    answers are scored.
-4. Hard invariant `../../PROJECT.md` §4.4 stays true after this plan: no human-in-the-loop
-   gate is added before an LLM's output changes what the user sees. This plan makes
-   existing untrusted output more visible, not more trusted.
+4. Hard invariant `../../PROJECT.md` §4 (invariant 4) stays true after this plan: no
+   human-in-the-loop gate is added before an LLM's output changes what the user sees.
+   This plan makes existing untrusted output more visible, not more trusted.
 5. `DOMAIN/CONCEPTS.md`'s `Report` term definition must be updated in the same commit
    that changes the `Report` schema, so the domain doc does not silently drift from the
    code (`../../SCRIPTS/check-domain-concepts.sh` will not catch this — it is a
@@ -162,8 +163,8 @@ and free-form markdown.
 - Touch `app/core/criteria.py` (the fixed areas/criteria list) — out of scope.
 - Touch `frontend/` — that is P2.
 - Add a human-approval gate before the report is generated — that would violate
-  `../../PROJECT.md` §4.4 as currently stated; if that invariant should change, that is
-  a vision-level decision, not part of this plan.
+  `../../PROJECT.md` §4 invariant 4 as currently stated; if that invariant should
+  change, that is a vision-level decision, not part of this plan.
 
 **Verification shape:**
 - Manual: run a full session via `curl` against a live server (as done during earlier
@@ -228,10 +229,12 @@ legible.
 
 ## Carry-overs / deferred
 
-- Multi-user session listing (`../../PROJECT.md` §4.1's related gap: no
-  `GET /api/sessions` index) — explicitly out of scope for this plan; tracked separately.
+- Multi-user session listing (`../../PROJECT.md` §2's "Known gap: no session listing":
+  no `GET /api/sessions` index) — explicitly out of scope for this plan; tracked
+  separately.
 - Automated test suite — explicitly out of scope; this plan's verification stays manual,
   matching the rest of the repo today.
-- Any change to `../../PROJECT.md` §4.4 (LLM output trusted without human review) — out
-  of scope; would be a vision-level decision requiring its own discussion and, if made,
+- Any change to `../../PROJECT.md` §4 invariant 4 (LLM output trusted without human
+  review) — out of scope; would be a vision-level decision requiring its own discussion
+  and, if made,
   a `DECISIONS/LOG.md` row.

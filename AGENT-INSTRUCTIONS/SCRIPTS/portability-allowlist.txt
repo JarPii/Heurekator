@@ -106,6 +106,7 @@ Code
 Not
 Treat
 Report
+Known
 
 # ── Generic tech acronyms ──
 # Show up in ordinary prose describing any HTTP/JSON-based service; not a project name.

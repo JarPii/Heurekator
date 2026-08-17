@@ -37,6 +37,17 @@ laajempi `Idea`-käsite tilalla.
    rivin `Decision`/`Rejected`/`Why rejected` -sarakkeet pysyvät ennallaan sellaisina
    kuin ne kirjattiin.
 
+**Suhde D2:een.** D2 sisälsi kaksi erillistä tarvetta yhdessä päätöksessä: (1) kevyt
+sessiolistaus `JSONFileStore`:n päälle, ja (2) Postgres+pgvector-vektorihaun
+lykkääminen myöhempään vaiheeseen. Tämä päätös (D4) korvaa **vain** tarpeen (1) —
+elinkaarimalli tekee erillisen sessiolistauksen tarpeettomaksi, koska sama näkymä
+rakennetaan `Idea`-tilan päälle suoraan. Tarve (2) — ei Postgresia/pgvectoria nyt — **ei
+muutu tässä päätöksessä**; D2:n perustelu sille (ei deploy-kohdetta, ei tietokantaa,
+`SessionStore`-abstraktio tekee myöhemmästä vaihdosta halvan) pysyy voimassa
+sellaisenaan. `LOG.md`:n `Status`-sarake ei erottele osittaista korvautumista rivi-
+tasolla, joten D2:n rivi näkyy kokonaan `superseded by D4`:nä vaikka vain sen
+sessiolistaus-osa on korvattu — ks. D2:n oma narratiivi tästä tarkennuksesta.
+
 **Suhde `Session`-käsitteeseen (`DOMAIN/CONCEPTS.md`).** Koska idea voi siirtyä
 validointiin useaan kertaan elinkaarensa aikana (§9.4), yksi `Idea` voi liittyä
 useampaan `Session`-tallenteeseen ajan myötä — ei ylikirjoiteta, jokainen validointikierros

@@ -52,6 +52,8 @@ riskirekisteri, suositus (§3.4)
 
 Paine (§1:n "pakottaa") on tarkoituksella vain kahdessa suppenemispisteessä — juurisyyn löytäminen ja idean validointi — ei koko matkan ajan. Aivoriihi (§2b) on tietoinen, rajattu poikkeus: siellä paine on pois päältä, koska laaja ideointi tarvitsee tilaa jota välitön arviointi tukahduttaisi.
 
+Yllä oleva kaavio näyttää yhden, tyypillisen polun idean elämässä — ei koko mallia. "IDEAN ELINKAARI" ei ole oma, kertaluontoinen vaihe aivoriihen ja validoinnin välissä, vaan §9:n mukainen tilajoukko jonka *sisällä* validointi on yksi tila muiden joukossa: idea voi palata validointiin useaan kertaan, myös vuosien tauon jälkeen arkistosta nostettuna (§9.4), eikä minkään tilan välillä ole pakotettuja siirtymäsääntöjä (§9.1). Kaavio kuvaa siis validoinnin ensimmäistä kertaa, ei elinkaarta kokonaisuutena — ks. §9 täydestä mallista.
+
 ## 2. Ongelman kuvaus
 
 Ideoita syntyy jatkuvasti, mutta useimmat niistä pysyvät pinnallisina ajatuksina. Tyypillinen kaava on:
@@ -207,13 +209,17 @@ Ei ulkoista käyttäjäkuntaa, ei jakelua tässä vaiheessa. Tavoite on validoid
 
 ## 8. Seuraavat askeleet
 
+*Tämä lista kertoo mitä; toteutusjärjestyksen, riippuvuudet ja kunkin kohdan
+nykytilan kertoo `ROADMAP.md` (repon juuressa) — päivitetään useammin kuin tätä
+dokumenttia, joten se on ajantasaisempi lähde järjestykselle kuin numerointi alla.*
+
 1. **Prototyyppi** — suppea kysymyspatteristo ja yksinkertainen arviointilogiikka, käytettävissä yhdellä idealla kerrallaan
 2. **Oma käyttö** — aja 2–3 omaa tai tiimin ideaa läpi prosessista, arvioi muuttuiko käsitys
 3. **Arviointikriteerien kalibrointi** — hio kriteerejä oman käytön kokemuksen perusteella
 4. **Lopputuloksen muotoilu** — vakiinnuta konseptidokumentin rakenne omaan käyttöön sopivaksi
 5. **Nelikielisyys** — kysymykset, vastaukset ja käyttöliittymä suomeksi, englanniksi, ranskaksi ja puolaksi; raportit aina englanniksi (§3.5)
 6. **Idean elinkaarimalli** — kerätyistä ideoista listaus jossa näkyy tila (kerätty/sivuun/validoinnissa/jatkossa/arkistossa), ks. §9 — pääsy takaisin vanhoihin ideoihin ilman että session-tunnus pitää muistaa on tämän osa, ei erillinen ominaisuus
-7. **Vektorointi/semanttinen haku** — kun ideamäärä kasvaa riittävän suureksi; aina englanninkielisiin raportteihin, ei alkuperäiskielisiin keskusteluihin (§3.5); ei vielä ajankohtainen — ks. `AGENT-INSTRUCTIONS/DECISIONS/LOG.md` D4
+7. **Vektorointi/semanttinen haku** — kun ideamäärä kasvaa riittävän suureksi; aina englanninkielisiin raportteihin, ei alkuperäiskielisiin keskusteluihin (§3.5); ei vielä ajankohtainen — lykkäyksen perustelu on kirjattu `AGENT-INSTRUCTIONS/DECISIONS/LOG.md` D2:een (rivin `Status` on `superseded by D4`, mutta vain sessiolistaus-osaltaan — vektorihaku-lykkäys itsessään ei ole korvattu, ks. D2:n ja D4:n narratiivit)
 8. **Ongelman validointi** — juurisyy-analyysi ennen ideointia, sama moottori eri kysymyslogiikalla (§2a) — tuorein ajatus, vaatii vielä muotoilua ennen skoopattavaa suunnitelmaa
 9. **Aivoriihi** — laaja, paineeton ideointi validoitua ongelmaa vasten, syöttää tuotokset suoraan keräykseen (§2b, §9.2) — tuorein ajatus, riippuu 8:sta
 10. **Ääni ja litterointi** — elävä puheentunnistus + äänifasilitaattori aivoriiheen (§2b.1) — kunnianhimoisin ja teknisesti raskain osa visiota, oma kolmas palveluntarjoajariippuvuus; ei skoopata ennen kuin 8–9 ovat edes runkona olemassa

@@ -43,3 +43,14 @@ raportin datan esitystapa eivät ole sama päätös.
 **Seuraava askel.** Ei vielä pläänattu — tämä päätös koskee vain suuntaa, ei
 toteutuslaajuutta. `PLAN-AUTHORING-SCOPING.md`:n mukainen scoped plan tehdään kun
 toteutus aloitetaan.
+
+**Miksi tämä ylittää `DECISIONS/LOG.md`:n kynnyksen.** `DECISIONS/README.md` §2 kirjaa
+lokiin vain päätöksiä jotka muuttavat visiota tai roadmapia — ei taktisia
+toteutusvalintoja. Pelkkä väripaletti tai layout ei sinänsä ylittäisi tätä. Tämä päätös
+ylittää sen silti, koska se ei ole vain visuaalinen valinta: se on tulkinta siitä mitä
+Visio.md §1:n ydinsana "pakottaa" tarkoittaa käyttöliittymässä, ja se hylkää kaksi
+muuten toteuttamiskelpoista tulkintaa nimenomaan sillä perusteella että ne
+*pehmentävät* painetta (rauhoittava dialogi, etäännyttävä mittaristo) — siis
+ristiriidassa vision kanssa, ei vain esteettisesti erilaisia. Tämä on sama kynnys jonka
+D3 (kielisyys) ja D4 (elinkaarimalli) ylittävät: valinta, joka olisi voinut mennä
+vision periaatteen vastaisesti jos sitä ei olisi tehty tietoisesti.

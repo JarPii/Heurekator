@@ -1,8 +1,14 @@
 # D2 — Säilytysstrategia: kevyt ensin, vektorihaku myöhemmin
 
-> **Superseded by [D4](D4-idea-lifecycle.md) (2026-08-17).** D2:n "kevyt sessiolistaus"
-> korvattiin laajemmalla idea-elinkaarimallilla ennen kuin sitä ehdittiin toteuttaa —
-> loput tästä tiedostosta kuvaavat alkuperäisen, nyt korvatun ajatuksen.
+> **Osittain superseded by [D4](D4-idea-lifecycle.md) (2026-08-17).** D4 korvaa vain
+> tämän tiedoston tarpeen 1 -ratkaisun (kevyt sessiolistaus `JSONFileStore`:n päälle) —
+> se korvattiin laajemmalla idea-elinkaarimallilla ennen kuin ehdittiin toteuttaa.
+> Tarpeen 2 -päätös (ei Postgres+pgvectoria nyt, ks. "Päätös" ja "Miksi ei
+> Postgres+pgvector nyt" alla) **ei** ole korvattu — D4:n narratiivi ei käsittele
+> vektorihakua lainkaan, ks. D4:n "Suhde D2:een". `LOG.md`:n `Status`-sarake on
+> rivikohtainen binäärilippu (`active`/`superseded by D<n>`) eikä erottele näitä kahta
+> osaa, joten D2:n koko rivi on merkitty `superseded by D4` vaikka vain osa siitä on
+> tosiasiassa korvattu — tämä huomautus paikkaa sen.
 
 **Tausta.** Käyttäjä ehdotti Postgres-tyyppistä suoraa tallennusta ja mahdollista
 vektorilisäosaa (pgvector), jotta vanhoihin ideoihin pääsee uudelleen käsiksi ja
@@ -13,8 +19,8 @@ uudelleenarviointia varten.
 (`app/core/store.py`) ei koskaan poista mitään — jokainen sessio (koko
 kysymys-vastaus-historia, arvioinnit, raportti) säilyy pysyvästi `data/sessions/`-
 kansiossa. "Kaikki keskustelut jäävät talteen" on siis jo totta. Todellinen aukko oli
-löydettävyys: ei ole listausta menneistä sessioista (jo aiemmin kirjattu tunnettuna
-puutteena `PROJECT.md` §4.1:ssä).
+löydettävyys: ei ole listausta menneistä sessioista (nyt kirjattu tunnettuna puutteena
+`PROJECT.md` §2:ssa, "Known gap: no session listing").
 
 **Kaksi erillistä tarvetta, jotka helposti sekoittuvat yhdeksi päätökseksi:**
 1. **Selaus/uudelleenavaus** — nähdä lista omista ideoista, avata jokin uudelleen.

@@ -1,6 +1,7 @@
 # Heurekator (MVP)
 
-Sisäinen työkalu ideoiden sokraattiseen seulontaan. Ks. [Visio.md](Visio.md).
+Sisäinen työkalu ideoiden sokraattiseen seulontaan. Ks. [Visio.md](Visio.md) (mitä
+tehdään) ja [ROADMAP.md](ROADMAP.md) (missä järjestyksessä).
 
 ## Arkkitehtuuri
 

@@ -79,9 +79,11 @@ README notes this port is sometimes already taken locally (e.g. by VS Code) and 
 `--port` in that case. No docker-compose, no queue, no separate services.
 
 Stable docs to read before changing a subsystem: `README.md` (setup + API surface),
-`Visio.md` (product vision and scope, v0.7 — internal use only). No `ARCHITECTURE.md`,
-no maintained seam index, and no config index exist; this `PROJECT.md` §2 is currently
-the closest thing to one.
+`Visio.md` (product vision and scope, v0.7 — internal use only), `ROADMAP.md`
+(implementation order and dependencies for `Visio.md` §8's remaining steps — read it
+before starting a new roadmap item so it lands in its real sequence). No
+`ARCHITECTURE.md`, no maintained seam index, and no config index exist; this
+`PROJECT.md` §2 is currently the closest thing to one.
 
 `DECISIONS/LOG.md` — the append-only record of what was decided and rejected, and why.
 Read it at the start of a session touching an area with prior entries; see
@@ -97,6 +99,13 @@ allows; see `DOMAIN/README.md`.
 references into this project's own E2E specs (§3 below names the harness). Read it
 before adding a use case, so it lands in its real sequence instead of as an orphan; see
 `WORKFLOWS/README.md`.
+
+**Known gap: no session listing.** `app/main.py` has no `GET /api/sessions` route — a
+session can only be reached if its UUID is already known (each one is handed back once,
+at creation). Not an oversight: deferred pending the idea-lifecycle model
+(`Visio.md` §9, `DECISIONS/LOG.md` D4), which will subsume this need with a real `Idea`
+listing rather than build a throwaway session-only listing first (see D4's narrative,
+"Suhde D2:een").
 
 ## 3. Canonical verification commands
 
