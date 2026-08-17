@@ -1,0 +1,137 @@
+# Tokens check-portability.sh should not flag even though they are new relative to
+# PROJECT.template.md — generic tech vocabulary that legitimately shows up both in a
+# filled-in PROJECT.md and in the portable BUILDING/PLANNING/SUBAGENTS/DECISIONS docs.
+# One token per line, matched as a whole line, case-insensitively.
+#
+# The rule for adding one: the term must be generic vocabulary that a portable doc has
+# a legitimate reason to mention — a language, a runner, a common command word, a tool
+# named only as an example. Never add this project's product name, service names,
+# hostnames, ports, or spec paths; those are the leaks this check exists to catch.
+#
+# Every entry is a permanent blind spot, so keep the list short and justified.
+
+# ── AI assistant product names the portable docs mention only as examples ──
+# REPO-RULES.md §0 names GitHub Copilot as one of the supported agents;
+# that mention is a capability statement, not a project-specific leak.
+Copilot
+
+# ── Command words that appear in every repo's canonical test/build commands ──
+# PROJECT.md §3 puts these in code spans; the portable docs discuss "a test", "the
+# build", "run the baseline" in prose constantly.
+test
+tests
+build
+run
+check
+start
+dev
+lint
+format
+install
+
+# ── Runtimes, package managers, and build tools ──
+npm
+npx
+yarn
+pnpm
+node
+python
+python3
+pip
+pytest
+tox
+cargo
+make
+gradle
+maven
+bash
+sh
+git
+docker
+docker-compose
+compose
+
+# ── HTML / markup attribute values found in code spans ──
+# PROJECT.md §2-3 often has setup commands or links with these attributes;
+# they appear in code spans like `target="_blank"` and are extracted by
+# extract_code_tokens — they carry no project-specific meaning.
+target
+_blank
+href
+rel
+noopener
+noreferrer
+
+# ── Generic database / API field names ──
+# Column names that appear in any CREATE TABLE or schema snippet.
+# Adding here means they won't false-positive when a project's PROJECT.md
+# includes a schema example that also appears in BUILDING/ docs as a generic example.
+notes
+status
+created
+updated
+
+# ── Test/E2E frameworks the portable docs name only as examples ──
+# WORKFLOWS/README.md and BROWNFIELD-PRIMER.md list these to say the package does NOT
+# assume any particular one — that mention is the opposite of a leak.
+playwright
+cypress
+selenium
+jest
+vitest
+mocha
+junit
+cucumber
+
+# ── Titlecase prose words that collide with capitalized headings and labels ──
+# Ordinary vocabulary a filled-in PROJECT.md may capitalize at a sentence start or in a
+# label, and that the portable docs legitimately capitalize too.
+Actor
+Stack
+Status
+Scope
+Config
+Gate
+Phase
+Plan
+User
+Read
+Write
+Note
+Example
+Services
+Layout
+Deploy
+Code
+Not
+Treat
+Report
+
+# ── Generic tech acronyms ──
+# Show up in ordinary prose describing any HTTP/JSON-based service; not a project name.
+API
+HTTP
+JSON
+
+# ── Conventional filenames and path fragments named only as generic examples ──
+# BROWNFIELD-PRIMER.md itself lists these as things to look for in any repo
+# (Makefile, Dockerfile, ARCHITECTURE.md, tests/, .github/workflows/); a filled-in
+# PROJECT.md saying "no Dockerfile exists" is not a project-specific leak.
+ARCHITECTURE
+ARCHITECTURE.md
+Dockerfile
+Makefile
+tests/
+env
+env.example
+github/workflows/
+
+# ── Command words (extends the group above) ──
+log
+sort
+
+# ── Generic directory/branch naming conventions ──
+# "app/" as a source directory and "main" as the default branch name are conventions
+# common to countless repos, not identifying facts about this one.
+app
+main

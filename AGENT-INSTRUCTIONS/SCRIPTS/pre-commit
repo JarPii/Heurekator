@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# pre-commit — git hook enforcing §0 of REPO-RULES.md.
+#
+# Works with any agent or developer: blocks git commit until you explicitly
+# authorize the work session.  This is the agent-agnostic companion to
+# check-write-authorization.sh (which is Claude-CLI-specific).
+#
+# Pre-commit fires after edits but before a commit lands — for git-based
+# workflows (GitHub Copilot, opencode, plain terminal) this is the last
+# practical gate before unauthorized work becomes history.
+#
+# Install (opt-in — nothing installs this for you). Canonical command; run it from
+# the repo root. README.md and REPO-RULES.md §0 point here rather than repeating it:
+#
+#   ln -sf ../../AGENT-INSTRUCTIONS/SCRIPTS/pre-commit .git/hooks/pre-commit
+#
+# That relative link assumes .git is a real directory at the repo root. In a worktree
+# or a submodule it is a file pointing elsewhere, so resolve the hooks dir instead:
+#
+#   ln -sf "$(realpath --relative-to="$(git rev-parse --git-dir)/hooks" \
+#             AGENT-INSTRUCTIONS/SCRIPTS/pre-commit)" \
+#          "$(git rev-parse --git-dir)/hooks/pre-commit"
+#
+# If core.hooksPath is set, git ignores .git/hooks entirely — install into that
+# directory instead (git config core.hooksPath).
+#
+# What this actually stops: an unauthorized commit, by any agent or human, via the
+# normal git path. It is not a security boundary — anything that can run commands can
+# also run 'touch .session-authorized' or 'git commit --no-verify'. It makes the §0
+# gate hard to cross by accident, not impossible to cross on purpose.
+#
+# To authorize a work session:  touch .session-authorized
+# To close / pause:             rm .session-authorized
+# Add to .gitignore:            echo .session-authorized >> .gitignore
+
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+AUTH_FILE="$REPO_ROOT/.session-authorized"
+
+if [[ ! -f "$AUTH_FILE" ]]; then
+  printf '\n  ✗  COMMIT BLOCKED — no active work session.\n\n' >&2
+  printf '     §0 of REPO-RULES.md requires an explicit decision to act before\n' >&2
+  printf '     any changes are committed.  When you are ready, run:\n\n' >&2
+  printf '       touch .session-authorized\n\n' >&2
+  printf '     Then retry the commit.  Remove the file to pause again.\n\n' >&2
+  exit 1
+fi

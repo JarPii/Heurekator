@@ -1,0 +1,16 @@
+{
+  "_comment": "The single knob for subagent model assignment. SCRIPTS/gen_agents.py stamps .claude/agents/ and .opencode/agents/ from the bodies in this dir + these ids. Claude: never opus. opencode: opencode-go/deepseek-v4-flash now; for a stronger variant later (mistral key), change only the reviewer/auditor opencode ids to mistral/<model>.",
+  "last_verified": "2026-08-02",
+  "claude": {
+    "seam-scout": "haiku",
+    "invariant-reviewer": "haiku",
+    "phase-spec-auditor": "haiku",
+    "phase-implementation-reviewer": "haiku"
+  },
+  "opencode": {
+    "seam-scout": "opencode-go/deepseek-v4-flash",
+    "invariant-reviewer": "opencode-go/deepseek-v4-flash",
+    "phase-spec-auditor": "opencode-go/deepseek-v4-flash",
+    "phase-implementation-reviewer": "opencode-go/deepseek-v4-flash"
+  }
+}
