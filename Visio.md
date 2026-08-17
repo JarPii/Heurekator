@@ -1,4 +1,4 @@
-# Heurekator — Vision Document v0.4 (sisäinen käyttö)
+# Heurekator — Vision Document v0.5 (sisäinen käyttö)
 
 > *The machine that forces eureka moments.*
 
@@ -9,6 +9,8 @@
 Heurekator on sisäinen työkalu, joka ei arvioi ideoita — se pakottaa idean kantajan arvioimaan itse. Työkalu kuljettaa käyttäjän strukturoidun, sokraattisen prosessin läpi, jossa jokainen vastaus arvioidaan, jokainen oletus haastetaan ja jokainen ristiriita tuodaan esiin. Lopputulos ei ole pelkkä arvio, vaan joko aiempaa syvällisempi, viestittämiskelpoinen konsepti — tai perusteltu hylkäys.
 
 Tässä vaiheessa työkalu on tarkoitettu omaan ja oman organisaation käyttöön: ideoiden seulontaan ennen kuin niihin sidotaan aikaa tai resursseja. Ei tuotetta, ei markkinaa — vain väline parempaan ajatteluun.
+
+Sokraattinen validointi (§3) on yksi vaihe idean elinkaaressa, ei ainoa asia mitä Heurekatorissa voi tehdä idealle — ks. §9.
 
 ## 2. Ongelman kuvaus
 
@@ -132,12 +134,44 @@ Ei ulkoista käyttäjäkuntaa, ei jakelua tässä vaiheessa. Tavoite on validoid
 3. **Arviointikriteerien kalibrointi** — hio kriteerejä oman käytön kokemuksen perusteella
 4. **Lopputuloksen muotoilu** — vakiinnuta konseptidokumentin rakenne omaan käyttöön sopivaksi
 5. **Nelikielisyys** — kysymykset, vastaukset ja käyttöliittymä suomeksi, englanniksi, ranskaksi ja puolaksi; raportit aina englanniksi (§3.5)
-6. **Sessiolistaus** — pääsy takaisin vanhoihin ideoihin ilman että session-tunnus pitää muistaa
-7. **Vektorointi/semanttinen haku** — kun ideamäärä kasvaa riittävän suureksi; aina englanninkielisiin raportteihin, ei alkuperäiskielisiin keskusteluihin (§3.5); ei vielä ajankohtainen — ks. `AGENT-INSTRUCTIONS/DECISIONS/LOG.md` D2
+6. **Idean elinkaarimalli** — kerätyistä ideoista listaus jossa näkyy tila (kerätty/sivuun/validoinnissa/jatkossa/arkistossa), ks. §9 — pääsy takaisin vanhoihin ideoihin ilman että session-tunnus pitää muistaa on tämän osa, ei erillinen ominaisuus
+7. **Vektorointi/semanttinen haku** — kun ideamäärä kasvaa riittävän suureksi; aina englanninkielisiin raportteihin, ei alkuperäiskielisiin keskusteluihin (§3.5); ei vielä ajankohtainen — ks. `AGENT-INSTRUCTIONS/DECISIONS/LOG.md` D4
+
+## 9. Idean elinkaari
+
+Validointi (§3) on yksi vaihe idean elämässä, ei ainoa. Heurekator hallinnoi ideoita niiden koko elinkaaren ajan — keräämisestä arkistointiin.
+
+### 9.1 Tilat
+
+Idean tila on vapaasti asetettava, avoin lista — ei kiinteä, pakotettu tilakone eikä sallittuja siirtymiä rajoittava sääntöjoukko. Ensimmäiset tilat:
+
+- **Kerätty** — idea talletettu sellaisenaan, ei vielä käsitelty mitenkään.
+- **Sivuun** — luokiteltu, mutta jätetty odottamaan. Ei poisteta koskaan.
+- **Validoinnissa** — käynnissä oleva tai valmistunut sokraattinen validointikierros (§3).
+- **Jatkossa** — hyväksytty etenemään.
+- **Arkistossa** — päätetty, ei enää aktiivinen, mutta säilyy pysyvästi.
+
+Lista on avoin — uusia tiloja voi lisätä myöhemmin, samaan tapaan kuin arviointialueet (§3.2) ovat konfiguroitavissa koodissa ilman rakenteen uudelleensuunnittelua. Idea voi liikkua mistä tahansa tilasta mihin tahansa toiseen milloin tahansa; ei pakotettuja siirtymäsääntöjä.
+
+### 9.2 Kerääminen
+
+Kerääminen on tarkoituksella ohut: idea talletetaan sellaisenaan, ilman analyysiä ja **ilman LLM-kutsua**. Tämä erottaa sen validoinnista (§3), joka on aina raskas, kysymyksiä esittävä prosessi. Kerääminen on nopea tapa saada idea ylös ilman että se heti pakottaa vastaamaan mihinkään — paine (§1) tulee vasta kun idea siirretään validointiin.
+
+### 9.3 Luokittelu
+
+Kerätty idea luokitellaan johonkin tilaan (9.1). Luokittelu on käyttäjän oma päätös, ei automaattinen tai LLM:n tekemä — työkalu ei arvaa mihin idea kuuluu.
+
+### 9.4 Validointi useaan kertaan
+
+Koska idea voi liikkua tilojen välillä vapaasti, sama idea voi käydä validoinnissa (§3) useamman kerran elinkaarensa aikana — esimerkiksi arkistoon laitettu idea nostetaan myöhemmin uudelleen esiin ja validoidaan uudestaan uusilla oletuksilla. Jokainen validointikierros säilyy omana, erillisenä tallenteenaan — mitään aiempaa validointia ei ylikirjoiteta.
+
+### 9.5 Suhde säilytysstrategiaan
+
+Ks. `AGENT-INSTRUCTIONS/DECISIONS/LOG.md` D4 (korvaa D2:n): idean elinkaarilistaus rakennetaan suoraan tämän mallin päälle sellaisenaan, ei erillisenä, myöhemmin laajennettavana sessiolistauksena.
 
 ---
 
-*Heurekator — Vision Document v0.4 (sisäinen käyttö)*
+*Heurekator — Vision Document v0.5 (sisäinen käyttö)*
 *Luonnos perustuen visiokeskusteluun, elokuu 2026.*
 *Nimi: Heurekator / Heurekaattori*
 *Tagline: The machine that forces eureka moments.*

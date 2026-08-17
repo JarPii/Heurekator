@@ -1,5 +1,9 @@
 # D2 — Säilytysstrategia: kevyt ensin, vektorihaku myöhemmin
 
+> **Superseded by [D4](D4-idea-lifecycle.md) (2026-08-17).** D2:n "kevyt sessiolistaus"
+> korvattiin laajemmalla idea-elinkaarimallilla ennen kuin sitä ehdittiin toteuttaa —
+> loput tästä tiedostosta kuvaavat alkuperäisen, nyt korvatun ajatuksen.
+
 **Tausta.** Käyttäjä ehdotti Postgres-tyyppistä suoraa tallennusta ja mahdollista
 vektorilisäosaa (pgvector), jotta vanhoihin ideoihin pääsee uudelleen käsiksi ja
 kaikki keskustelut jäävät talteen myöhempää tarkastelua ja mahdollista
