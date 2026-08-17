@@ -24,6 +24,7 @@ file `DECISIONS/<id>-<slug>.md`, linked from the last column — never inlined h
 | ID | Date | Decision | Rejected | Why rejected | Status | Narrative |
 |----|------|----------|----------|---------------|--------|-----------|
 | D1 | 2026-08-17 | UI-suunta: "Kuulustelupöytäkirja" — tumma, pöytäkirjamainen visuaalinen kieli, leimasin-tyyliset arvioinnit | "Sokraattinen pöytäkirja" (klassinen keskitetty dialogi-layout); "Diagnostiikkalaite" (mittaristo/dashboard-tyyli) | Kaikki kolme olivat toteuttamiskelpoisia, mutta vain Kuulustelupöytäkirja ottaa Visio.md §1:n ydinsanan "pakottaa" kirjaimellisesti visuaalisena kielenä — se muut kaksi pehmentävät painetta (dialogi rauhoittaa, mittaristo kliinistyy) kun taas kuulustelu-estetiikka pitää sen näkyvänä joka näytöllä | active | [D1-ui-direction.md](D1-ui-direction.md) |
+| D2 | 2026-08-17 | Säilytysstrategia: pysytään `JSONFileStore`:ssa ja lisätään kevyt sessiolistaus (ei uutta infraa); semanttinen/vektorihaku siirretään myöhempään vaiheeseen | Postgres + pgvector nyt | Yhden käyttäjän prototyyppi, ei tietokantaa, ei migraatioita, ei deploy-kohdetta tällä hetkellä (`PROJECT.md` §5-§6); embeddausputki toisi uuden LLM-kutsun ja kustannuksen ilman että nykyinen ideamäärä perustelisi sitä. `SessionStore`-abstraktio (`app/core/store.py`) tekee myöhemmästä vaihdosta halvan, joten päätöstä ei tarvitse tehdä nyt varmuuden vuoksi | active | [D2-persistence-strategy.md](D2-persistence-strategy.md) |
 
 <!--
 Example row (format reference only — delete this comment block once the table has
