@@ -1,4 +1,4 @@
-# Heurekator — Vision Document v0.6 (sisäinen käyttö)
+# Heurekator — Vision Document v0.7 (sisäinen käyttö)
 
 > *The machine that forces eureka moments.*
 
@@ -83,6 +83,20 @@ Kun ongelma on validoitu (§2a), aivoriihi tuottaa laajan kirjon mahdollisia rat
 LLM tuottaa ehdotuksia validoitua ongelmaa (§2a) vasten; käyttäjä voi pyytää lisää, ohjata suuntaa, tai poimia suoraan. Jokainen aivoriihen tuottama tai sieltä poimittu idea päätyy §9.2:n mukaisesti kerätyksi — kevyesti, ilman arviointia — ja etenee siitä eteenpäin kuten mikä tahansa muukin kerätty idea.
 
 **Ei vielä ratkaistu:** montako ideaa yhdellä kierroksella; voiko käyttäjä lisätä omia ideoita saman aivoriihi-session sisällä ilman LLM:ää; säilyykö koko aivoriihi-sessio yhtenä tallenteena vai vain sen tuottamat yksittäiset kerätyt ideat.
+
+### 2b.1 Ääni ja litterointi
+
+*Uusi ajatus, ei vielä toteutettu.*
+
+Aivoriihi (§2b) tapahtuu tyypillisesti ryhmässä, jossa kirjurina toimiminen samalla kun ideoidaan on vaikeaa. Heurekator kuuntelee kokoushuonetta, litteroi puheen **elävästi kesken kokouksen** (ei nauhoitus + jälkikäsittely), ja poimii litteroidusta tekstistä ideoita jatkuvasti.
+
+- **Elävä litterointi.** Teksti syntyy kesken kokouksen, ei jälkikäteen.
+- **Yksi yhdistetty transkripti, ei puhujaerottelua.** Aivoriihen luonteessa idea irtoaa esittäjästään joka tapauksessa — kuka sanoi minkäkin ei ole oleellista tässä vaiheessa.
+- **Äänifasilitaattori.** Heurekator ei vain kuuntele, vaan myös puhuu: se lukee ääneen omat provokaationsa ja jatkokysymyksensä kesken ideoinnin (esim. "entä jos hinta olisi ilmainen?"), samaan tapaan kuin ihminen fasilitaattori tekisi. Kukaan ei joudu katsomaan ruutua kesken ideoinnin.
+
+**Tekninen paino, syytä tunnistaa etukäteen.** Tämä on kunnianhimoisin yksittäinen osa koko visiota tähän mennessä. Elävä, kaksisuuntainen ääni-vuorovaikutus on eri laji kuin mikään muu Heurekatorin osa: se vaatii striimatun audioyhteyden (ei pyyntö-vastaus-mallia kuten loput sovelluksesta), puheentunnistuspalvelun joka tukee striimausta, jatkuvan tai jaksottaisen ideapoiminnan kasvavasta transkriptista, puheentuottamispalvelun, ja logiikan joka päättää *milloin* fasilitaattori puuttuu peliin ääneen — liian usein häiritsee, liian harvoin ei auta. Tämä ei kulje minkään olemassa olevan `LLMClient`-toteutuksen (`app/llm/base.py`) kautta — puhe sisään/ulos on eri kyvykkyyslaji kuin teksti sisään/ulos, ja todennäköisesti vaatii kolmannen palveluntarjoajan Mistralin/Anthropicin rinnalle.
+
+**Ei vielä ratkaistu:** milloin/kuinka usein fasilitaattori puhuu (kiinteä väli, hiljaisuuden tunnistus, vai LLM:n oma harkinta); mikä puheentunnistus-/puheentuottamispalvelu; miten litteroitu, ideapoiminnalla käsitelty aineisto tallentuu suhteessa kerättyihin ideoihin (§9.2). Ks. `AGENT-INSTRUCTIONS/DECISIONS/LOG.md` D5 kolmesta jo tehdystä alipäätöksestä (elävä vs. jälkikäteinen, yhdistetty transkripti vs. puhujaerottelu, äänifasilitaattorin käyttötarkoitus).
 
 ## 3. Idean validointi
 
@@ -202,6 +216,7 @@ Ei ulkoista käyttäjäkuntaa, ei jakelua tässä vaiheessa. Tavoite on validoid
 7. **Vektorointi/semanttinen haku** — kun ideamäärä kasvaa riittävän suureksi; aina englanninkielisiin raportteihin, ei alkuperäiskielisiin keskusteluihin (§3.5); ei vielä ajankohtainen — ks. `AGENT-INSTRUCTIONS/DECISIONS/LOG.md` D4
 8. **Ongelman validointi** — juurisyy-analyysi ennen ideointia, sama moottori eri kysymyslogiikalla (§2a) — tuorein ajatus, vaatii vielä muotoilua ennen skoopattavaa suunnitelmaa
 9. **Aivoriihi** — laaja, paineeton ideointi validoitua ongelmaa vasten, syöttää tuotokset suoraan keräykseen (§2b, §9.2) — tuorein ajatus, riippuu 8:sta
+10. **Ääni ja litterointi** — elävä puheentunnistus + äänifasilitaattori aivoriiheen (§2b.1) — kunnianhimoisin ja teknisesti raskain osa visiota, oma kolmas palveluntarjoajariippuvuus; ei skoopata ennen kuin 8–9 ovat edes runkona olemassa
 
 ## 9. Idean elinkaari
 
@@ -239,7 +254,7 @@ Ks. `AGENT-INSTRUCTIONS/DECISIONS/LOG.md` D4 (korvaa D2:n): idean elinkaarilista
 
 ---
 
-*Heurekator — Vision Document v0.6 (sisäinen käyttö)*
+*Heurekator — Vision Document v0.7 (sisäinen käyttö)*
 *Luonnos perustuen visiokeskusteluun, elokuu 2026.*
 *Nimi: Heurekator / Heurekaattori*
 *Tagline: The machine that forces eureka moments.*
