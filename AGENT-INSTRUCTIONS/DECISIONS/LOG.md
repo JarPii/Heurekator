@@ -23,6 +23,7 @@ file `DECISIONS/<id>-<slug>.md`, linked from the last column — never inlined h
 
 | ID | Date | Decision | Rejected | Why rejected | Status | Narrative |
 |----|------|----------|----------|---------------|--------|-----------|
+| D1 | 2026-08-17 | UI-suunta: "Kuulustelupöytäkirja" — tumma, pöytäkirjamainen visuaalinen kieli, leimasin-tyyliset arvioinnit | "Sokraattinen pöytäkirja" (klassinen keskitetty dialogi-layout); "Diagnostiikkalaite" (mittaristo/dashboard-tyyli) | Kaikki kolme olivat toteuttamiskelpoisia, mutta vain Kuulustelupöytäkirja ottaa Visio.md §1:n ydinsanan "pakottaa" kirjaimellisesti visuaalisena kielenä — se muut kaksi pehmentävät painetta (dialogi rauhoittaa, mittaristo kliinistyy) kun taas kuulustelu-estetiikka pitää sen näkyvänä joka näytöllä | active | [D1-ui-direction.md](D1-ui-direction.md) |
 
 <!--
 Example row (format reference only — delete this comment block once the table has
