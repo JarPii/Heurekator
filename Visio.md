@@ -1,4 +1,4 @@
-# Heurekator — Vision Document v0.3 (sisäinen käyttö)
+# Heurekator — Vision Document v0.4 (sisäinen käyttö)
 
 > *The machine that forces eureka moments.*
 
@@ -76,6 +76,15 @@ Tai vaihtoehtoisesti:
 
 - **Perustellun hylkäyksen** — työkalu tunnistaa, milloin idea ei kestä painetta, ja kertoo miksi
 
+### 3.5 Kielisyys
+
+Työkalu tukee aluksi neljää käyttökieltä: **suomi, englanti, ranska, puola**. Käyttäjä valitsee kielen idean syöttövaiheessa.
+
+- Kysymykset, vastaukset ja koko käyty keskustelu säilyvät valitulla kielellä sellaisenaan — mitään ei käännetä prosessin aikana, jotta alkuperäinen ilmaisu ei vääristy.
+- Konseptidokumentti, arviointiprofiili ja loppuraportti (§3.4) tuotetaan aina **englanniksi**, riippumatta keskustelun kielestä — erillisenä käännösvaiheena keskustelun päätyttyä, ei osana itse keskustelua.
+- Käyttöliittymän kiinteät tekstit (painikkeet, otsikot, virheviestit) käännetään kaikille neljälle kielelle.
+- Kun ideoiden vektorointi/semanttinen haku joskus toteutetaan (§8), vektorointi tehdään aina englanninkielisiin raportteihin — ei alkuperäiskielisiin keskusteluihin. Tämä pitää haun keskinäisen eheyden riippumatta siitä millä kielellä yksittäinen idea alun perin käytiin läpi.
+
 ## 4. Ero suoraan LLM-käyttöön
 
 | Suora LLM-käyttö | Heurekator |
@@ -122,10 +131,13 @@ Ei ulkoista käyttäjäkuntaa, ei jakelua tässä vaiheessa. Tavoite on validoid
 2. **Oma käyttö** — aja 2–3 omaa tai tiimin ideaa läpi prosessista, arvioi muuttuiko käsitys
 3. **Arviointikriteerien kalibrointi** — hio kriteerejä oman käytön kokemuksen perusteella
 4. **Lopputuloksen muotoilu** — vakiinnuta konseptidokumentin rakenne omaan käyttöön sopivaksi
+5. **Nelikielisyys** — kysymykset, vastaukset ja käyttöliittymä suomeksi, englanniksi, ranskaksi ja puolaksi; raportit aina englanniksi (§3.5)
+6. **Sessiolistaus** — pääsy takaisin vanhoihin ideoihin ilman että session-tunnus pitää muistaa
+7. **Vektorointi/semanttinen haku** — kun ideamäärä kasvaa riittävän suureksi; aina englanninkielisiin raportteihin, ei alkuperäiskielisiin keskusteluihin (§3.5); ei vielä ajankohtainen — ks. `AGENT-INSTRUCTIONS/DECISIONS/LOG.md` D2
 
 ---
 
-*Heurekator — Vision Document v0.3 (sisäinen käyttö)*
+*Heurekator — Vision Document v0.4 (sisäinen käyttö)*
 *Luonnos perustuen visiokeskusteluun, elokuu 2026.*
 *Nimi: Heurekator / Heurekaattori*
 *Tagline: The machine that forces eureka moments.*
