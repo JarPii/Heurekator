@@ -12,7 +12,15 @@
     <h1><img class="lockup" src="/assets/heurekator-lockup.png" alt="Heurekator — the machine that forces eureka moments" width="1200" height="345" /></h1>
   </header>
 
-  <section id="idea-form">
+  <section id="mode-select">
+    <p class="mode-select-label">Mitä haluat käsitellä?</p>
+    <div class="mode-choices">
+      <button id="mode-idea-btn" class="mode-choice">Idea</button>
+      <button id="mode-ongelma-btn" class="mode-choice" disabled title="Ei vielä toteutettu">Ongelma <span class="mode-choice-note">(tulossa)</span></button>
+    </div>
+  </section>
+
+  <section id="idea-form" hidden>
     <label for="idea">Kuvaa ideasi</label>
     <textarea id="idea" rows="4" placeholder="Mikä on ideasi?"></textarea>
     <button id="start-btn">Aloita</button>

@@ -32,6 +32,13 @@ const answerForm = document.getElementById("answer-form");
 const answerInput = document.getElementById("answer");
 const reportEl = document.getElementById("report");
 const startBtn = document.getElementById("start-btn");
+const modeSelect = document.getElementById("mode-select");
+const modeIdeaBtn = document.getElementById("mode-idea-btn");
+
+modeIdeaBtn.addEventListener("click", () => {
+  modeSelect.hidden = true;
+  ideaForm.hidden = false;
+});
 
 startBtn.addEventListener("click", async () => {
   const idea = document.getElementById("idea").value.trim();
