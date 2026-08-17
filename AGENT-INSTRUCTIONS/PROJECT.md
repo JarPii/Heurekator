@@ -70,7 +70,7 @@ Heurekator/
   data/sessions/            one JSON file per session, written by JSONFileStore
                              (gitignored — local runtime state, not source)
   AGENT-INSTRUCTIONS/        this package
-  Visio.md                   the project's vision document (internal-use scope, v0.5)
+  Visio.md                   the project's vision document (internal-use scope, v0.6)
   requirements.txt, .env.example, README.md
 ```
 
@@ -79,7 +79,7 @@ README notes this port is sometimes already taken locally (e.g. by VS Code) and 
 `--port` in that case. No docker-compose, no queue, no separate services.
 
 Stable docs to read before changing a subsystem: `README.md` (setup + API surface),
-`Visio.md` (product vision and scope, v0.5 — internal use only). No `ARCHITECTURE.md`,
+`Visio.md` (product vision and scope, v0.6 — internal use only). No `ARCHITECTURE.md`,
 no maintained seam index, and no config index exist; this `PROJECT.md` §2 is currently
 the closest thing to one.
 

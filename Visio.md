@@ -1,4 +1,4 @@
-# Heurekator — Vision Document v0.5 (sisäinen käyttö)
+# Heurekator — Vision Document v0.6 (sisäinen käyttö)
 
 > *The machine that forces eureka moments.*
 
@@ -12,6 +12,46 @@ Tässä vaiheessa työkalu on tarkoitettu omaan ja oman organisaation käyttöö
 
 Sokraattinen validointi (§3) on yksi vaihe idean elinkaaressa, ei ainoa asia mitä Heurekatorissa voi tehdä idealle — ks. §9.
 
+### 1.1 Kokonaiskuva: prosessin vaiheet
+
+Tämä dokumentti on kirjoitettu parin tunnin sisällä ja kasvaa yhä — kokonaiskuva hahmottuu keskustelun myötä, ei valmiina. Kaikkia alla kuvattuja vaiheita ei ole vielä toteutettu koodissa; tämä on visio siitä miten palaset sopivat yhteen, ei tilannekatsaus toteutuksesta (ks. `AGENT-INSTRUCTIONS/PROJECT.md` toteutuksen nykytilaa varten).
+
+```
+ONGELMA (käyttäjän syöttämä)
+  │
+  ▼
+┌─────────────────────────────────────────────┐
+│ ONGELMAN VALIDOINTI — juurisyyt (§2a)        │  ← PAINE PÄÄLLÄ
+│ ohjailtu "miksi" -ketju samalla moottorilla  │
+│ kuin idean validointi, eri kysymyspatteristo │
+└─────────────────────────────────────────────┘
+  │  validoitu ongelma
+  ▼
+┌─────────────────────────────────────────────┐
+│ AIVORIIHI — laaja ideointi (§2b)             │  ← PAINE POIS, tietoinen poikkeus
+│ useita, myös hulluja ratkaisuehdotuksia      │
+│ validoitua ongelmaa vasten, ei arviointia    │
+└─────────────────────────────────────────────┘
+  │  yksi tai useampi idea (tai idea suoraan käyttäjältä, ilman ongelman validointia)
+  ▼
+┌─────────────────────────────────────────────┐
+│ IDEAN ELINKAARI (§9)                         │
+│ Kerätty → Luokittelu → Sivuun / Arkistoon /  │
+│           Validointiin → Jatkoon             │
+└─────────────────────────────────────────────┘
+  │  luokiteltu validointiin
+  ▼
+┌─────────────────────────────────────────────┐
+│ IDEAN VALIDOINTI — sokraattinen paine (§3)   │  ← PAINE PÄÄLLÄ
+└─────────────────────────────────────────────┘
+  │
+  ▼
+RAPORTTI: konseptidokumentti, arviointiprofiili,
+riskirekisteri, suositus (§3.4)
+```
+
+Paine (§1:n "pakottaa") on tarkoituksella vain kahdessa suppenemispisteessä — juurisyyn löytäminen ja idean validointi — ei koko matkan ajan. Aivoriihi (§2b) on tietoinen, rajattu poikkeus: siellä paine on pois päältä, koska laaja ideointi tarvitsee tilaa jota välitön arviointi tukahduttaisi.
+
 ## 2. Ongelman kuvaus
 
 Ideoita syntyy jatkuvasti, mutta useimmat niistä pysyvät pinnallisina ajatuksina. Tyypillinen kaava on:
@@ -22,7 +62,31 @@ Ideaa ei altisteta riittävälle kritiikille ennen kuin resursseja on sidottu. S
 
 Sama pätee sisäisiin ideoihin yhtä lailla kuin ulkoisiin: tiimin sisällä syntyvä idea saa usein vapaakortin, koska sitä ei koskaan altisteta samalle paineelle kuin ulkopuolelle esitettyä ideaa.
 
-## 3. Mitä työkalu tekee
+## 2a. Ongelman validointi
+
+*Uusi ajatus, ei vielä toteutettu — ks. §1.1:n kokonaiskuva.*
+
+Idea ei ole ainoa asia jonka Heurekator voi altistaa paineelle — myös ongelma, jota idean pitäisi ratkaista, kannattaa validoida ennen kuin siihen aletaan keksiä ratkaisuja. Moni "ratkaisu" epäonnistuu koska se vastaa oireeseen, ei syyhyn: idean validointi (§3) tarkistaa onko *idea* kestävä, mutta ei kyseenalaista onko *ongelma* edes se oikea ongelma.
+
+Menetelmä muistuttaa "kysy viisi kertaa miksi" -tekniikkaa, mutta ohjailevampana: käyttäjä esittää ongelman, ja työkalu esittää sarjan syventäviä miksi-kysymyksiä — ei mekaanisesti tasan viisi kertaa, vaan niin kauan kuin vastaus vielä paljastaa uuden, syvemmän syyn eikä vain toista pintatason oiretta. Rakenteellisesti sama moottori kuin idean validoinnissa (§3.1, §3.3: kysymys → vastaus → arviointi → sopeutus → seuraava kysymys) — mutta oma kysymyslogiikka juurisyiden etsintään, ei §3.2:n seitsemää aluetta.
+
+Lopputulos on dokumentoitu juurisyyketju ("validoitu ongelma"), joka syötetään joko aivoriiheen (§2b) tai suoraan idean keräämiseen (§9.2) jos ratkaisu on jo olemassa.
+
+**Ei vielä ratkaistu:** pysähtymiskriteeri (milloin syvyys riittää — kiinteä kierrosmäärä, arviointimoottorin oma "kestävä"-tyyppinen päätös, vai käyttäjän oma valinta?); tarkka kysymyslogiikka; miten "validoitu ongelma" tallentuu suhteessa myöhempiin ideoihin.
+
+## 2b. Aivoriihi
+
+*Uusi ajatus, ei vielä toteutettu — ks. §1.1:n kokonaiskuva.*
+
+Kun ongelma on validoitu (§2a), aivoriihi tuottaa laajan kirjon mahdollisia ratkaisuideoita sille — myös hulluja. Tämä on tietoisesti Heurekatorin muun luonteen vastakohta: ei arviointia, ei sopeutuvaa haastamista, ei painetta. Tavoite on määrä ja moninaisuus, ei laatu — laatu tulee myöhemmin, kun jokin näistä ideoista nostetaan idean validointiin (§3). Jos aivoriihi arvioisi ideat heti syntyessään, se tukahduttaisi juuri sen mitä aivoriihen pitäisi tuottaa.
+
+LLM tuottaa ehdotuksia validoitua ongelmaa (§2a) vasten; käyttäjä voi pyytää lisää, ohjata suuntaa, tai poimia suoraan. Jokainen aivoriihen tuottama tai sieltä poimittu idea päätyy §9.2:n mukaisesti kerätyksi — kevyesti, ilman arviointia — ja etenee siitä eteenpäin kuten mikä tahansa muukin kerätty idea.
+
+**Ei vielä ratkaistu:** montako ideaa yhdellä kierroksella; voiko käyttäjä lisätä omia ideoita saman aivoriihi-session sisällä ilman LLM:ää; säilyykö koko aivoriihi-sessio yhtenä tallenteena vai vain sen tuottamat yksittäiset kerätyt ideat.
+
+## 3. Idean validointi
+
+Tämä on Heurekatorin ensimmäisenä rakennettu ja tähän mennessä ainoa toteutettu vaihe (§1.1:n kokonaiskuvassa) — se mitä koodi tänään tekee. Ongelman validointi (§2a) ja aivoriihi (§2b) ovat samaa pakottavaa periaatetta (tai sen tietoista poikkeusta) sovellettuna muihin vaiheisiin, mutta eivät vielä koodia.
 
 ### 3.1 Prosessin rakenne
 
@@ -136,6 +200,8 @@ Ei ulkoista käyttäjäkuntaa, ei jakelua tässä vaiheessa. Tavoite on validoid
 5. **Nelikielisyys** — kysymykset, vastaukset ja käyttöliittymä suomeksi, englanniksi, ranskaksi ja puolaksi; raportit aina englanniksi (§3.5)
 6. **Idean elinkaarimalli** — kerätyistä ideoista listaus jossa näkyy tila (kerätty/sivuun/validoinnissa/jatkossa/arkistossa), ks. §9 — pääsy takaisin vanhoihin ideoihin ilman että session-tunnus pitää muistaa on tämän osa, ei erillinen ominaisuus
 7. **Vektorointi/semanttinen haku** — kun ideamäärä kasvaa riittävän suureksi; aina englanninkielisiin raportteihin, ei alkuperäiskielisiin keskusteluihin (§3.5); ei vielä ajankohtainen — ks. `AGENT-INSTRUCTIONS/DECISIONS/LOG.md` D4
+8. **Ongelman validointi** — juurisyy-analyysi ennen ideointia, sama moottori eri kysymyslogiikalla (§2a) — tuorein ajatus, vaatii vielä muotoilua ennen skoopattavaa suunnitelmaa
+9. **Aivoriihi** — laaja, paineeton ideointi validoitua ongelmaa vasten, syöttää tuotokset suoraan keräykseen (§2b, §9.2) — tuorein ajatus, riippuu 8:sta
 
 ## 9. Idean elinkaari
 
@@ -157,6 +223,8 @@ Lista on avoin — uusia tiloja voi lisätä myöhemmin, samaan tapaan kuin arvi
 
 Kerääminen on tarkoituksella ohut: idea talletetaan sellaisenaan, ilman analyysiä ja **ilman LLM-kutsua**. Tämä erottaa sen validoinnista (§3), joka on aina raskas, kysymyksiä esittävä prosessi. Kerääminen on nopea tapa saada idea ylös ilman että se heti pakottaa vastaamaan mihinkään — paine (§1) tulee vasta kun idea siirretään validointiin.
 
+Idea voi päätyä kerätyksi kahdella tavalla: käyttäjä syöttää sen suoraan, tai se on yksi aivoriihen (§2b) tuottamista ehdotuksista. Kumpikaan reitti ei muuta itse kerätty-tilan luonnetta — molemmat ovat yhtä kevyitä, yhtä paineettomia.
+
 ### 9.3 Luokittelu
 
 Kerätty idea luokitellaan johonkin tilaan (9.1). Luokittelu on käyttäjän oma päätös, ei automaattinen tai LLM:n tekemä — työkalu ei arvaa mihin idea kuuluu.
@@ -171,7 +239,7 @@ Ks. `AGENT-INSTRUCTIONS/DECISIONS/LOG.md` D4 (korvaa D2:n): idean elinkaarilista
 
 ---
 
-*Heurekator — Vision Document v0.5 (sisäinen käyttö)*
+*Heurekator — Vision Document v0.6 (sisäinen käyttö)*
 *Luonnos perustuen visiokeskusteluun, elokuu 2026.*
 *Nimi: Heurekator / Heurekaattori*
 *Tagline: The machine that forces eureka moments.*
