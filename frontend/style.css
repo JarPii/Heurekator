@@ -55,6 +55,53 @@ button {
   cursor: pointer;
 }
 
+#idea-form label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  margin-bottom: 0.5rem;
+}
+
+#idea-form textarea {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 0;
+  color: var(--paper);
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  padding: 0.85rem 1rem;
+}
+
+#idea-form textarea:focus {
+  outline: none;
+  border-color: var(--ink-gold);
+}
+
+#idea-form button {
+  background: transparent;
+  border: 2px solid var(--ink-gold);
+  border-radius: 0;
+  color: var(--ink-gold);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  padding: 0.6rem 1.75rem;
+}
+
+#idea-form button:hover:not(:disabled) {
+  background: var(--ink-gold);
+  color: var(--ground);
+}
+
+#idea-form button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 #messages {
   display: flex;
   flex-direction: column;
