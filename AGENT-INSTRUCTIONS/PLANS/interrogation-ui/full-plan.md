@@ -65,13 +65,12 @@ detailed (`PLAN-PHASE-DETAILING.md`), not here.
 | Phase | Title | Status | Gate level | Depends on | Phase file | Exit state | Move-on gate |
 |---|---|---|---|---|---|---|---|
 | P0 | Design tokens + brand shell | done | standard | - | `done/P0-design-tokens-brand-shell.md` | shared CSS tokens + masthead (logo, palette, type) exist; no screen content restyled yet | browser-verified: page loads with new palette/logo, all three sections still function |
-| P1 | Idea intake screen | planned | standard | P0 | - | `#idea-form` matches the direction | browser-verified: full idea-submission flow unchanged |
+| P1 | Idea intake screen | active | standard | P0 | `phases/P1-idea-intake-screen.md` | `#idea-form` matches the direction | browser-verified: full idea-submission flow unchanged |
 | P2 | Interrogation (chat) screen | planned | full (D6) | P0 | - | `#chat` matches the direction; area progress track shown; live per-turn verdict stamp | browser-verified: full session runs through all 7 areas to completion |
 | P3 | Report screen | planned | standard | P0 | - | `#report` matches the direction | browser-verified: finished report renders correctly end to end |
 
-Exactly one phase is `active` at a time. P0 is done; P1 is not yet detailed to
-implementation grade (see `done/P0-design-tokens-brand-shell.md`'s contract) — a
-review+advance session must detail it before it can be promoted to `active`.
+Exactly one phase is `active` at a time. P0 is done; P1 is detailed to implementation
+grade in `phases/P1-idea-intake-screen.md` and ready to implement.
 
 ## Implementation chunks + orchestration breakpoints
 
