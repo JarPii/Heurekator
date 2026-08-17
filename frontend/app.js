@@ -1,5 +1,21 @@
 const state = { sessionId: null };
 
+const VERDICT_LABELS = {
+  pinnallinen: "Pinnallinen",
+  ristiriitainen: "Ristiriitainen",
+  puuttuva_nakokulma: "Puuttuva näkökulma",
+  yksiulotteinen: "Yksiulotteinen",
+  kestava: "Kestävä",
+};
+const RECOMMENDATION_LABELS = {
+  jatka: "Jatka",
+  kehita_lisaa: "Kehitä lisää",
+  hylkaa: "Hylkää",
+};
+const PRIORITY_ORDER = { high: 0, medium: 1, low: 2 };
+const PRIORITY_LABELS = { high: "Korkea", medium: "Keskitaso", low: "Matala" };
+const RISK_KIND_LABELS = { risk: "Riskit", assumption: "Oletukset" };
+
 const ideaForm = document.getElementById("idea-form");
 const chat = document.getElementById("chat");
 const messagesEl = document.getElementById("messages");
@@ -78,12 +94,60 @@ function addMessage(role, text) {
 
 function renderReport(report) {
   reportEl.innerHTML = `
-    <h2>Lopputulos</h2>
-    <p><strong>Suositus:</strong> ${escapeHtml(report.recommendation)}</p>
+    <h2>Konseptidokumentti</h2>
+    <pre class="concept-doc"></pre>
+
+    <h2>Arviointiprofiili</h2>
+    <div class="evaluation-profile">${renderEvaluationProfile(report.evaluation_profile)}</div>
+
+    <h2>Riskirekisteri</h2>
+    <div class="risk-register">${renderRiskRegister(report.risk_register)}</div>
+
+    <h2>Suositus</h2>
+    <p class="recommendation"><strong>${escapeHtml(RECOMMENDATION_LABELS[report.recommendation] || report.recommendation)}</strong></p>
     <p>${escapeHtml(report.recommendation_rationale)}</p>
-    <pre></pre>
   `;
-  reportEl.querySelector("pre").textContent = report.concept_document_markdown;
+  reportEl.querySelector(".concept-doc").textContent = report.concept_document_markdown;
+}
+
+function renderEvaluationProfile(areas) {
+  return areas.map(area => `
+    <div class="area-card">
+      <h3>${escapeHtml(area.area_label)} <span class="verdict-pill verdict-${area.verdict}">${escapeHtml(VERDICT_LABELS[area.verdict] || area.verdict)}</span></h3>
+      <ul class="score-list">
+        ${area.scores.map(s => `<li><strong>${escapeHtml(s.criterion)}</strong> ${s.score}/5 — ${escapeHtml(s.comment)}</li>`).join("")}
+      </ul>
+      ${area.weaknesses.length ? `
+        <div class="weaknesses">
+          <strong>Heikkoudet:</strong>
+          <ul>${area.weaknesses.map(w => `<li>${escapeHtml(w)}</li>`).join("")}</ul>
+        </div>
+      ` : ""}
+    </div>
+  `).join("");
+}
+
+function renderRiskRegister(entries) {
+  return ["risk", "assumption"].map(kind => {
+    const items = entries
+      .filter(e => e.kind === kind)
+      .sort((a, b) => PRIORITY_ORDER[a.priority] - PRIORITY_ORDER[b.priority]);
+    if (items.length === 0) return "";
+    const hasHighPriority = items.some(e => e.priority === "high");
+    return `
+      <details class="risk-group" ${hasHighPriority ? "open" : ""}>
+        <summary>${RISK_KIND_LABELS[kind]} (${items.length})</summary>
+        <ul>
+          ${items.map(e => `
+            <li class="risk-item priority-${e.priority}">
+              <span class="priority-badge">${escapeHtml(PRIORITY_LABELS[e.priority] || e.priority)}</span>
+              ${escapeHtml(e.description)}
+            </li>
+          `).join("")}
+        </ul>
+      </details>
+    `;
+  }).join("");
 }
 
 function escapeHtml(text) {

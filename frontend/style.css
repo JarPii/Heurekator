@@ -61,3 +61,96 @@ pre {
   padding: 1rem;
   border-radius: 0.5rem;
 }
+
+.area-card {
+  border: 1px solid light-dark(#ddd, #444);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.verdict-pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  padding: 0.1rem 0.5rem;
+  border-radius: 1rem;
+  margin-left: 0.5rem;
+  background: light-dark(#eee, #333);
+}
+
+.verdict-pill.verdict-kestava {
+  background: light-dark(#d4f4dd, #1f3d2a);
+}
+
+.verdict-pill.verdict-pinnallinen,
+.verdict-pill.verdict-yksiulotteinen,
+.verdict-pill.verdict-ristiriitainen,
+.verdict-pill.verdict-puuttuva_nakokulma {
+  background: light-dark(#fde2d0, #4a2e1f);
+}
+
+.score-list {
+  margin: 0.5rem 0;
+  padding-left: 1.2rem;
+}
+
+.score-list li {
+  margin-bottom: 0.25rem;
+}
+
+.weaknesses {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.weaknesses ul {
+  margin: 0.25rem 0 0 0;
+  padding-left: 1.2rem;
+}
+
+.risk-group {
+  margin-bottom: 0.75rem;
+}
+
+.risk-group summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.risk-group ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0.5rem 0 0 0;
+}
+
+.risk-item {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid light-dark(#eee, #333);
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+
+.priority-badge {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  padding: 0.05rem 0.4rem;
+  border-radius: 0.75rem;
+  flex-shrink: 0;
+}
+
+.priority-high .priority-badge {
+  background: light-dark(#fdd, #4a1f1f);
+}
+
+.priority-medium .priority-badge {
+  background: light-dark(#fef3d0, #4a3f1f);
+}
+
+.priority-low .priority-badge {
+  background: light-dark(#eee, #333);
+}
+
+.recommendation {
+  font-size: 1.1rem;
+}

@@ -1,6 +1,6 @@
 # Report Fidelity Plan
 
-> **Status:** scoped forward plan - created 2026-08-17 on branch main.
+> **Status:** completed - all phases done 2026-08-17 on branch main.
 > **Scope:** the final `Report` a `Session` produces once every `Area` is resolved —
 > its data shape (`app/models.py`), how it is generated (`app/prompts/report.py`,
 > `app/core/engine.py`), and how it is shown (`frontend/`).
@@ -42,7 +42,9 @@ does not need a `DECISIONS/LOG.md` row — it needs this plan.
 | Phase | Title | Status | Gate level | Depends on | Phase file | Exit state | Move-on gate |
 |---|---|---|---|---|---|---|---|
 | P1 | Structured evaluation profile + risk register (backend) | done | full | - | `done/P1-structured-evaluation-profile.md` | `Report` carries real per-criterion scores and a prioritized risk register; report prompt receives `session.areas` | manual API verification (curl) shows the new fields populated and non-empty on a real session — passed 2026-08-17, user-confirmed |
-| P2 | Render the new fields in the chat UI | active | standard | P1 | `phases/P2-render-report.md` | user sees the evaluation profile and prioritized risks in the browser, not just the recommendation + raw markdown | human browser verification |
+| P2 | Render the new fields in the chat UI | done | standard | P1 | `done/P2-render-report.md` | user sees the evaluation profile and prioritized risks in the browser, not just the recommendation + raw markdown | automated browser screenshot (Playwright) — passed 2026-08-17, user-confirmed |
+
+Both phases done — this plan's scope (`Visio.md` §3.4 vs. `Report` gap) is closed.
 
 Gate level for P1 raised from the scoping pass's first guess (`standard`) to `full` while
 detailing: it changes the `Report` API shape P2 (and the frontend) depends on, and it
