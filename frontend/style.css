@@ -247,6 +247,17 @@ button {
   color: var(--ink-rust);
 }
 
+.area-cap-note {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  border-left: 2px dashed var(--line);
+  padding-left: 0.85rem;
+  margin-left: 1.5rem;
+}
+
 #answer-form textarea {
   background: var(--surface);
   border: 1px solid var(--line);

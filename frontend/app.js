@@ -1,4 +1,4 @@
-const state = { sessionId: null, mittakaava: null };
+const state = { sessionId: null, mittakaava: null, areaIndex: 0 };
 
 const VERDICT_LABELS = {
   pinnallinen: "Pinnallinen",
@@ -64,6 +64,7 @@ startBtn.addEventListener("click", async () => {
     if (!res.ok) throw new Error(await res.text());
     const data = await res.json();
     state.sessionId = data.session_id;
+    state.areaIndex = data.area_index;
     caseHeadingText.textContent = idea;
     ideaForm.hidden = true;
     chat.hidden = false;
@@ -100,6 +101,9 @@ answerForm.addEventListener("submit", async (e) => {
       renderReport(data.report);
     } else {
       stampVerdict(userMessageEl, data.verdict);
+      const capForced = data.area_index !== state.areaIndex && data.verdict !== "kestava";
+      if (capForced) addAreaCapNote();
+      state.areaIndex = data.area_index;
       addMessage("assistant", data.question, data.area_index);
     }
   } catch (err) {
@@ -132,6 +136,13 @@ function addMessage(role, text, areaIndex) {
   messagesEl.appendChild(div);
   div.scrollIntoView({ behavior: "smooth", block: "end" });
   return div;
+}
+
+function addAreaCapNote() {
+  const note = document.createElement("div");
+  note.className = "area-cap-note";
+  note.textContent = "Yritykset käytetty tälle alueelle — Heurekator siirtyy seuraavaan.";
+  messagesEl.appendChild(note);
 }
 
 function formatAreaLabel(areaIndex) {
