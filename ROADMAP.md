@@ -40,6 +40,20 @@ gate-taso nousi `full`:iin tämän takia.
 **Miksi tässä kohtaa:** pienin ja itsenäisin jäljellä oleva vaihe. Parantaa myös §8
 kohdan 2 ("oma käyttö") kokemusta heti, ilman että se odottaa mitään muuta.
 
+### R1.5 — Tilan valintanäyttö (D7)
+**Perustuu:** D7.
+**Riippuu:** R1 (jakaa saman `frontend/`-token/tyylipohjan, D1:n suunta).
+**Tila: ei vielä skoopattu.** Uusi näyttö sovelluksen aloitussivuksi ennen
+`#idea-form`:ia, kaksi valintaa: "Idea" (johtaa olemassa olevaan §3-validointiin
+sellaisenaan) ja "Ongelma" (näkyy, mutta selvästi merkitty ei-vielä-toteutetuksi —
+`REPO-RULES.md` §2:n sallima, eksplisiittisesti merkitty degraded path). Ei rakenna
+§2a:n kysymyslogiikkaa — se on yhä R4:n vastuulla.
+**Miksi tässä kohtaa:** paljasti käyttäjätestauksessa (D7:n tausta) ettei sovellus
+tarjoa mitään reittiä ongelman validointiin, vaikka `Visio.md` §1.1 kuvaa sen omana
+vaiheenaan ennen ideaa. Tekee tämän puutteen näkyväksi käyttäjälle heti, ilman että
+mitään §2a:n ratkaisemattomista kysymyksistä (pysähtymiskriteeri, kysymyslogiikka)
+tarvitsee ratkaista tässä vaiheessa.
+
 ### R2 — Nelikielisyys (D3)
 **Perustuu:** D3.
 **Riippuu:** ei kovaa riippuvuutta R1:stä, mutta kannattaa tulla heti sen jälkeen — muuten `frontend/`-koodia muokataan kahteen kertaan (kerran UI-suunnan takia, kerran kieliparametroinnin takia).
