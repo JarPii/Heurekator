@@ -54,6 +54,67 @@ Paine (§1:n "pakottaa") on tarkoituksella vain kahdessa suppenemispisteessä �
 
 Yllä oleva kaavio näyttää yhden, tyypillisen polun idean elämässä — ei koko mallia. "IDEAN ELINKAARI" ei ole oma, kertaluontoinen vaihe aivoriihen ja validoinnin välissä, vaan §9:n mukainen tilajoukko jonka *sisällä* validointi on yksi tila muiden joukossa: idea voi palata validointiin useaan kertaan, myös vuosien tauon jälkeen arkistosta nostettuna (§9.4), eikä minkään tilan välillä ole pakotettuja siirtymäsääntöjä (§9.1). Kaavio kuvaa siis validoinnin ensimmäistä kertaa, ei elinkaarta kokonaisuutena — ks. §9 täydestä mallista.
 
+## 1.2 Etusivu ja aloitusvalinnat
+
+*Uusi ajatus, ei vielä toteutettu.*
+
+Sovelluksen aloitusnäyttö on etusivu (dashboard), joka kokoaa yhteen erilaisia
+näkymiä — tarkka sisältö tarkentuu myöhemmin, ei vielä ratkaistu.
+
+### Ensimmäinen valinta: mikä prosessi
+
+Käyttäjä valitsee kolmesta lähtöpisteestä, laajentaen `DECISIONS/LOG.md` D7:n
+kaksisuuntaisen valinnan (Idea/Ongelma) kolmisuuntaiseksi (ks. D8):
+
+- **Juurisyy** — ongelman validointi (§2a)
+- **Aivoriihi** — laaja ideointi jollekin teemalle (§2b); teema valitaan omasta
+  valikosta, joko aiemmin validoidusta ongelmasta tai suoraan annettuna (D8) — ei
+  pakkoreittiä juurisyyn kautta
+- **Idean validointi** — sokraattinen paine yhdelle idealle (§3), sovelluksen
+  ensimmäinen ja tähän mennessä ainoa toteutettu prosessi
+
+Kuten D7:ssä, jokainen ei-vielä-toteutettu haara näkyy valintana mutta on selvästi
+merkitty kesken olevaksi (`AGENT-INSTRUCTIONS/BUILDING/REPO-RULES.md` §2:n sallima,
+eksplisiittisesti merkitty degraded path) kunnes sen taustalla oleva logiikka on
+ratkaistu (§2a:n osalta R4, §2b:n osalta R5 — ks. `ROADMAP.md`).
+
+### Toinen valinta: mittakaava
+
+Ensimmäisen valinnan jälkeen käyttäjä luokittelee prosessin mittakaavan — aina
+käyttäjän oma valinta, ei automaattinen eikä LLM:n tekemä (sama periaate kuin §9.3:n
+idean tila-luokittelussa):
+
+- **Sisäinen toiminta** — oma, tiimin, tai koko organisaation toiminnan kehittäminen
+- **Toimitus** — toimitusprojektin akuutti ongelma; sisältää sekä korjaavan
+  toimenpiteen (lyhyen aikavälin ratkaisu) että ehkäisevän toimenpiteen (pysyvämpi
+  ratkaisu samaan juurisyyhyn) — toimitusten laadun parantamiseen tähtäävä
+- **Uusi ominaisuus** — laajennus olemassa olevaan toimitukseen
+- **Uusi ratkaisu** — kokonaan uusi, mahdollisesti myytävä ratkaisu, joko toimitusten
+  oheen tai täysin erillisenä — innovaatioon tähtäävä
+
+### Kolmas taso: Heurekatorin oma luokittelu
+
+Näiden sisällä Heurekator voi tehdä omaa, tarkentuvaa luokittelua (esim. mekaaninen,
+ohjelmallinen, työtapa) — ei vielä määritelty, tarkentuu myöhemmin.
+
+### Kysymysten muotoiluperiaate
+
+Kaikissa kolmessa prosessissa (juurisyy, aivoriihi, idean validointi) kysymykset
+muotoillaan samalla periaatteella (ks. `DECISIONS/LOG.md` D9):
+
+a) kysymyksen mittakaava perustuu edellä tehtyihin valintoihin (prosessi + mittakaava)
+b) jokaista kysymystä edeltää lyhyt yhteenveto siitä, mitä on jo saatu aikaan
+c) jos yhteenveto paljastaa puutteen, seuraa jatkokysymys joka kohdistuu juuri siihen
+   puutteeseen
+
+Aivoriihessä (§2b) tämä koskee ideoiden *leveyttä/kattavuutta*, ei laatua — laadun
+arviointi pysyy yksinomaan idean validoinnin (§3) vastuulla.
+
+**Ei vielä ratkaistu:** etusivun tarkka sisältö; mittakaava-luokittelun tarkat rajat
+(esim. milloin "toimitus" vs. "uusi ominaisuus"); mihin tietomalliin
+mittakaava-valinta tallentuu ennen kuin §9:n idea-elinkaarimalli (R3) on olemassa;
+kolmannen tason luokittelun tarkka sisältö.
+
 ## 2. Ongelman kuvaus
 
 Ideoita syntyy jatkuvasti, mutta useimmat niistä pysyvät pinnallisina ajatuksina. Tyypillinen kaava on:
@@ -72,19 +133,43 @@ Idea ei ole ainoa asia jonka Heurekator voi altistaa paineelle — myös ongelma
 
 Menetelmä muistuttaa "kysy viisi kertaa miksi" -tekniikkaa, mutta ohjailevampana: käyttäjä esittää ongelman, ja työkalu esittää sarjan syventäviä miksi-kysymyksiä — ei mekaanisesti tasan viisi kertaa, vaan niin kauan kuin vastaus vielä paljastaa uuden, syvemmän syyn eikä vain toista pintatason oiretta. Rakenteellisesti sama moottori kuin idean validoinnissa (§3.1, §3.3: kysymys → vastaus → arviointi → sopeutus → seuraava kysymys) — mutta oma kysymyslogiikka juurisyiden etsintään, ei §3.2:n seitsemää aluetta.
 
-Lopputulos on dokumentoitu juurisyyketju ("validoitu ongelma"), joka syötetään joko aivoriiheen (§2b) tai suoraan idean keräämiseen (§9.2) jos ratkaisu on jo olemassa.
+Lopputulos on dokumentoitu juurisyyketju ("validoitu ongelma"), joka syötetään joko
+aivoriiheen (§2b) — heti tai myöhemmin, valittuna aivoriihen teemavalikosta (§1.2) —
+tai suoraan idean keräämiseen (§9.2) jos ratkaisu on jo olemassa.
 
 **Ei vielä ratkaistu:** pysähtymiskriteeri (milloin syvyys riittää — kiinteä kierrosmäärä, arviointimoottorin oma "kestävä"-tyyppinen päätös, vai käyttäjän oma valinta?); tarkka kysymyslogiikka; miten "validoitu ongelma" tallentuu suhteessa myöhempiin ideoihin.
 
 ## 2b. Aivoriihi
 
-*Uusi ajatus, ei vielä toteutettu — ks. §1.1:n kokonaiskuva.*
+*Uusi ajatus, ei vielä toteutettu — ks. §1.1:n kokonaiskuva ja §1.2:n aloitusvalinnat.*
 
-Kun ongelma on validoitu (§2a), aivoriihi tuottaa laajan kirjon mahdollisia ratkaisuideoita sille — myös hulluja. Tämä on tietoisesti Heurekatorin muun luonteen vastakohta: ei arviointia, ei sopeutuvaa haastamista, ei painetta. Tavoite on määrä ja moninaisuus, ei laatu — laatu tulee myöhemmin, kun jokin näistä ideoista nostetaan idean validointiin (§3). Jos aivoriihi arvioisi ideat heti syntyessään, se tukahduttaisi juuri sen mitä aivoriihen pitäisi tuottaa.
+Aivoriihi tuottaa laajan kirjon mahdollisia ratkaisuideoita jollekin teemalle — myös
+hulluja. Teema valitaan aivoriihen aloitusvalikosta (§1.2): joko aiemmin validoitu
+ongelma (§2a:n tulos, valittuna historiasta) tai käyttäjän suoraan antama teema, ilman
+että sille on tehty juurisyyanalyysiä (ks. `DECISIONS/LOG.md` D8). Kumpikaan reitti ei
+muuta itse aivoriihen luonnetta.
 
-LLM tuottaa ehdotuksia validoitua ongelmaa (§2a) vasten; käyttäjä voi pyytää lisää, ohjata suuntaa, tai poimia suoraan. Jokainen aivoriihen tuottama tai sieltä poimittu idea päätyy §9.2:n mukaisesti kerätyksi — kevyesti, ilman arviointia — ja etenee siitä eteenpäin kuten mikä tahansa muukin kerätty idea.
+Aivoriihi pysyy vapaana idean *laadun* arvioinnista — se ei pisteytä eikä hylkää
+ideoita, laatu tulee vasta myöhemmin kun jokin idea nostetaan idean validointiin (§3).
+Mutta se saa saman kysymysten muotoiluperiaatteen kuin juurisyy (§2a) ja idean
+validointi (§3): jokaista jatkokysymystä edeltää lyhyt yhteenveto tähän mennessä
+kerätyistä ideoista, ja jos yhteenveto paljastaa selvän puutteen — esim. ideat
+kattavat vain yhden näkökulman — työkalu esittää tarkoituksella leveyttä hakevan
+jatkokysymyksen ("entä jos hinta olisi ilmainen?" -tyylisesti) sen sijaan että vain
+odottaisi lisää (ks. `DECISIONS/LOG.md` D9). Jos aivoriihi arvioisi ideoiden *laatua*
+heti syntyessään, se tukahduttaisi juuri sen mitä aivoriihen pitäisi tuottaa — mutta
+leveyden hakeminen ei ole laadun arviointia.
 
-**Ei vielä ratkaistu:** montako ideaa yhdellä kierroksella; voiko käyttäjä lisätä omia ideoita saman aivoriihi-session sisällä ilman LLM:ää; säilyykö koko aivoriihi-sessio yhtenä tallenteena vai vain sen tuottamat yksittäiset kerätyt ideat.
+LLM tuottaa ehdotuksia valittua teemaa vasten; käyttäjä voi pyytää lisää, ohjata
+suuntaa, tai poimia suoraan. Jokainen aivoriihen tuottama tai sieltä poimittu idea
+päätyy §9.2:n mukaisesti kerätyksi — kevyesti, ilman arviointia — ja etenee siitä
+eteenpäin kuten mikä tahansa muukin kerätty idea.
+
+**Ei vielä ratkaistu:** montako ideaa yhdellä kierroksella; voiko käyttäjä lisätä omia
+ideoita saman aivoriihi-session sisällä ilman LLM:ää; säilyykö koko aivoriihi-sessio
+yhtenä tallenteena vai vain sen tuottamat yksittäiset kerätyt ideat; mikä täsmälleen
+lasketaan "puutteelliseksi yhteenvedoksi" aivoriihen kontekstissa (leveys/kattavuus, ei
+syvyys kuten §2a:ssa/§3:ssa) — tarkka logiikka jää R5:n scopingiin.
 
 ### 2b.1 Ääni ja litterointi
 

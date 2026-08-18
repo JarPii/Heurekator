@@ -8,6 +8,7 @@ from pydantic import BaseModel
 from app.core.engine import Engine
 from app.core.store import JSONFileStore
 from app.llm.factory import get_llm_client
+from app.models import Mittakaava
 
 load_dotenv()
 
@@ -24,6 +25,7 @@ _engine = Engine(_llm, _store)
 
 class StartRequest(BaseModel):
     idea: str
+    mittakaava: Mittakaava
 
 
 class AnswerRequest(BaseModel):
@@ -32,7 +34,7 @@ class AnswerRequest(BaseModel):
 
 @app.post("/api/sessions")
 def start_session(req: StartRequest):
-    session, question = _engine.start_session(req.idea)
+    session, question = _engine.start_session(req.idea, req.mittakaava)
     return {"session_id": session.id, "question": question, "area_index": session.current_area_index}
 
 

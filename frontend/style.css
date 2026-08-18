@@ -15,7 +15,7 @@
 }
 
 body {
-  max-width: 640px;
+  max-width: 900px;
   margin: 2rem auto;
   padding: 0 1rem;
   line-height: 1.5;
@@ -46,6 +46,10 @@ body {
   text-align: center;
 }
 
+#mittakaava-select {
+  text-align: center;
+}
+
 .mode-select-label {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -73,6 +77,8 @@ body {
   text-transform: uppercase;
   padding: 0.6rem 1.75rem;
   margin-top: 0;
+  flex: 1 1 0;
+  min-width: 10.5rem;
   cursor: pointer;
 }
 
@@ -153,6 +159,28 @@ button {
 #idea-form button:disabled {
   opacity: 0.5;
   cursor: default;
+}
+
+.case-heading {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.case-heading-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--paper-dim);
+  margin: 0 0 0.35rem 0;
+}
+
+.case-heading-text {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--paper);
+  margin: 0;
 }
 
 #messages {

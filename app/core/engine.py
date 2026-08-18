@@ -8,6 +8,7 @@ from app.models import (
     AreaProgress,
     Evaluation,
     Message,
+    Mittakaava,
     Report,
     ReportNarrative,
     Session,
@@ -28,9 +29,10 @@ class Engine:
         self._llm = llm
         self._store = store
 
-    def start_session(self, idea: str) -> tuple[Session, str]:
+    def start_session(self, idea: str, mittakaava: Mittakaava) -> tuple[Session, str]:
         session = Session(
             id=str(uuid.uuid4()),
+            mittakaava=mittakaava,
             idea=idea,
             areas=[AreaProgress(area_id=a.id) for a in AREAS],
         )
@@ -85,7 +87,9 @@ class Engine:
         self, session: Session, last_evaluation: Evaluation | None = None
     ) -> str:
         area = AREAS[session.current_area_index]
-        system, messages = build_question_prompt(session.idea, area, session.history, last_evaluation)
+        system, messages = build_question_prompt(
+            session.idea, area, session.history, last_evaluation, session.mittakaava
+        )
         question = self._llm.complete_text(system, messages)
         session.history.append(Message(role="assistant", content=question))
         return question

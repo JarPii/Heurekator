@@ -1,4 +1,4 @@
-const state = { sessionId: null };
+const state = { sessionId: null, mittakaava: null };
 
 const VERDICT_LABELS = {
   pinnallinen: "Pinnallinen",
@@ -32,27 +32,39 @@ const answerForm = document.getElementById("answer-form");
 const answerInput = document.getElementById("answer");
 const reportEl = document.getElementById("report");
 const startBtn = document.getElementById("start-btn");
+const caseHeadingText = document.getElementById("case-heading-text");
 const modeSelect = document.getElementById("mode-select");
 const modeIdeaBtn = document.getElementById("mode-idea-btn");
+const mittakaavaSelect = document.getElementById("mittakaava-select");
 
 modeIdeaBtn.addEventListener("click", () => {
   modeSelect.hidden = true;
-  ideaForm.hidden = false;
+  mittakaavaSelect.hidden = false;
+});
+
+mittakaavaSelect.querySelectorAll(".mode-choice").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    state.mittakaava = btn.dataset.mittakaava;
+    mittakaavaSelect.hidden = true;
+    ideaForm.hidden = false;
+  });
 });
 
 startBtn.addEventListener("click", async () => {
   const idea = document.getElementById("idea").value.trim();
   if (!idea) return;
   startBtn.disabled = true;
+  startBtn.textContent = "Aloitetaan…";
   try {
     const res = await fetch("/api/sessions", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ idea }),
+      body: JSON.stringify({ idea, mittakaava: state.mittakaava }),
     });
     if (!res.ok) throw new Error(await res.text());
     const data = await res.json();
     state.sessionId = data.session_id;
+    caseHeadingText.textContent = idea;
     ideaForm.hidden = true;
     chat.hidden = false;
     addMessage("assistant", data.question, data.area_index);
@@ -60,6 +72,7 @@ startBtn.addEventListener("click", async () => {
     alert(`Virhe session aloituksessa: ${err.message}`);
   } finally {
     startBtn.disabled = false;
+    startBtn.textContent = "Aloita";
   }
 });
 
@@ -98,7 +111,9 @@ answerForm.addEventListener("submit", async (e) => {
 
 function setFormDisabled(disabled) {
   answerInput.disabled = disabled;
-  answerForm.querySelector("button").disabled = disabled;
+  const btn = answerForm.querySelector("button");
+  btn.disabled = disabled;
+  btn.textContent = disabled ? "Arvioidaan…" : "Lähetä";
 }
 
 function addMessage(role, text, areaIndex) {

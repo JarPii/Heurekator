@@ -1,22 +1,36 @@
 # Mode Selector Plan
 
-> **Status:** scoped forward plan - created 2026-08-17 on branch main.
-> **Scope:** `ROADMAP.md` R1.5 (D7). Add one new screen, `#mode-select`, shown before
-> `#idea-form` on app load: two choices, "Idea" and "Ongelma". "Idea" routes into the
-> existing, unchanged §3 flow (`#idea-form` → `#chat` → `#report`). "Ongelma" is shown
-> but visibly disabled/labeled not-yet-implemented (D7 — depends on `Visio.md` §2a,
-> `ROADMAP.md` R4, not yet scoped).
-> **Out of scope:** any `§2a` backend logic (root-cause question chain, stopping
-> criterion) — R4 builds that, not this. Any change to `#idea-form`, `#chat`, `#report`
-> internals — those stay exactly as `interrogation-ui`'s P0-P2 left them. D3
-> (multilingual), D4 (idea lifecycle) — unrelated roadmap items.
+> **Status:** scoped forward plan - revised 2026-08-18 on branch main.
+> **Scope:** `ROADMAP.md` R1.5 (D7, extended by D8/D9). `#mode-select`, shown before
+> `#idea-form` on app load: three choices, "Idea", "Ongelma", "Aivoriihi". "Idea" routes
+> into the existing, unchanged §3 flow (`#idea-form` → `#chat` → `#report`). "Ongelma"
+> and "Aivoriihi" are shown but visibly disabled/labeled not-yet-implemented (D7/D8 —
+> depend on `Visio.md` §2a/`ROADMAP.md` R4 and §2b/R5, neither scoped yet). After
+> "Idea", a second screen, `#mittakaava-select`, captures the `Visio.md` §1.2 scope
+> classification (sisäinen toiminta / toimitus / uusi ominaisuus / uusi ratkaisu)
+> before `#idea-form` and is sent to the backend, where it scales the
+> question-generation prompt (P2).
+> **Out of scope:** any `§2a`/`§2b` backend logic (R4, R5) — those are separate plans
+> when scoped. Aivoriihi's own theme menu (D8: pick a validated ongelma or give one
+> directly) — that is R5's UI; here "Aivoriihi" is only the honest not-yet-available
+> button, same as "Ongelma". Any change to `#idea-form`/`#chat`/`#report` beyond the
+> one new request field (P2) and the case-heading/area-cap-note additions (P2/P3) —
+> everything else stays as `interrogation-ui`'s P0-P2 left it. Evaluation/report
+> prompts (`app/prompts/evaluation.py`, `report.py`) — mittakaava only scales question
+> generation. D3 (multilingual), D4 (idea lifecycle) — unrelated roadmap items.
 > **Target:** internal-only prototype, matching `Visio.md`'s own scope (§6).
 >
-> **Parts:** single phase — this is a small, self-contained UI addition, no backend
-> change, no schema change.
+> **Parts:**
+> - **Part 0 - Two-choice selector (D7).** `#mode-select` with "Idea"/"Ongelma". Done.
+> - **Part 1 - Third choice + scope screen (D8/D9).** Add "Aivoriihi" to
+>   `#mode-select`; add `#mittakaava-select` after "Idea". Done.
+> - **Part 2 - Mittakaava-aware questions.** Send the mittakaava choice to the
+>   backend and use it to scale the question-generation prompt (D9). Done.
+> - **Part 3 - Area-cap advance signal.** Make the existing `MAX_ATTEMPTS_PER_AREA`
+>   gate visible to the user, client-side only.
 >
-> **How to use this plan:** one phase, detailed directly since scope and current code
-> are already fully verified (D7's narrative). See `phases/P0-mode-selector.md`.
+> **How to use this plan:** P0, P1, and P2 are done and compressed (`done/`). P3 is
+> detailed to implementation grade — see `phases/P3-area-cap-advance-signal.md`.
 
 ## Why this plan exists
 
@@ -27,15 +41,30 @@ idea-validation engine (§3) against it, silently assuming the idea's underlying
 problem is real. `ROADMAP.md` R1.5 records this as its own roadmap step, inserted
 after R1 (shares R1's `frontend/` token/style foundation) and before R2.
 
+D8 (`../../DECISIONS/D8-aivoriihi-theme-menu.md`) and D9
+(`../../DECISIONS/D9-question-design-principle.md`) extended the vision this plan
+implements: the app's entry point is a three-way choice, not two (`Visio.md` §1.2),
+and a second, mittakaava-scale choice follows the first. This plan's P1 phase brings
+`#mode-select` in line with D8 (add the "Aivoriihi" button) and adds the
+`#mittakaava-select` screen `Visio.md` §1.2 describes — both purely additive frontend
+work, same shape as P0.
+
 ## Phase status
 
 | Phase | Title | Status | Gate level | Depends on | Phase file | Exit state | Move-on gate |
 |---|---|---|---|---|---|---|---|
-| P0 | Mode selector screen | active | standard | `interrogation-ui` P0 (tokens) | `phases/P0-mode-selector.md` | `#mode-select` shown first; "Idea" reaches existing flow unchanged; "Ongelma" visibly disabled | browser-verified: both choices behave as specified, existing Idea flow unregressed |
+| P0 | Mode selector screen (Idea/Ongelma) | done | standard | `interrogation-ui` P0 (tokens) | `done/P0-mode-selector.md` | `#mode-select` shown first; "Idea" reaches existing flow unchanged; "Ongelma" visibly disabled | browser-verified: both choices behave as specified, existing Idea flow unregressed |
+| P1 | Third choice (Aivoriihi) + mittakaava screen | done | standard | P0 | `done/P1-mittakaava-and-aivoriihi.md` | `#mode-select` has three choices; `#mittakaava-select` captures scope before `#idea-form` | browser-verified: all three choices behave as specified, mittakaava screen captures a choice and reaches the unchanged idea flow |
+| P2 | Mittakaava-aware question framing | done | full | P1 | `done/P2-mittakaava-aware-questions.md` | `POST /api/sessions` accepts `mittakaava`; the question-generation prompt scales by it | browser-verified for "sisäinen toiminta"; "uusi ratkaisu" not independently re-verified (see `done/P2-...md`) |
+| P3 | Area-cap advance signal | active | standard | P2 | `phases/P3-area-cap-advance-signal.md` | a visible note explains when an area advanced because the 3-attempt cap was hit, not a `kestävä` verdict | browser-verified: note appears only on cap-forced advances, never on genuine `kestävä` advances |
 
-Exactly one phase. No later phases are scoped yet — if `Visio.md` §2a is later solved
-(R4), "Ongelma" becoming real is a new plan, not an extension of this one, since it
-would add real backend logic this plan explicitly excludes.
+P0, P1, and P2 are done. P3 was scoped mid-session: live testing during P2's
+verification surfaced that `MAX_ATTEMPTS_PER_AREA`'s existing gate (`app/core/
+criteria.py`) has no visible signal, so the user couldn't tell why a conversation
+"felt short." P3 makes that already-existing gate visible, purely client-side — no
+backend change. If `Visio.md` §2a or §2b are later solved (R4/R5),
+"Ongelma"/"Aivoriihi" becoming real is a new plan, not an extension of this one, since
+it adds real backend logic this plan explicitly excludes.
 
 ## How to implement this plan
 
@@ -64,66 +93,51 @@ would add real backend logic this plan explicitly excludes.
    change, no new LLM call (this phase adds zero LLM calls — "Idea" reuses the existing
    `POST /api/sessions` call unchanged, "Ongelma" makes no call at all since it is
    disabled).
+5. **Superseded by P2** — P1 originally scoped the mittakaava choice as frontend-only
+   (no backend field, since nothing consumed it). P2 gave it a real consumer (the
+   question-generation prompt, per D9), so as of P2 the mittakaava choice *is* sent to
+   the backend as `POST /api/sessions`'s `mittakaava` field and stored on `Session`.
+   The underlying rule — no unused fields invented ahead of a real consumer — still
+   applies to *future* additions; it just no longer applies to mittakaava itself.
 
 ## Current state (verified enough for scoping)
 
-- `frontend/index.html` - `<main id="app">` currently renders `<header class="masthead">`
-  then `#idea-form` (visible), `#chat` (hidden), `#report` (hidden) in sequence — no
-  screen currently exists before `#idea-form`.
-- `frontend/app.js` - no mode-selection state exists; `state = { sessionId: null }` is
-  the only app state; `#idea-form`'s `start-btn` listener is the current entry point,
-  firing immediately on page load readiness (no gating screen before it).
-- `frontend/style.css` - P0's tokens (`interrogation-ui` `done/P0-design-tokens-brand-shell.md`)
-  and the `.masthead`/`.lockup` pattern are established and reusable as-is.
-- `../../DECISIONS/D7-mode-selector.md` - binding decision and rationale.
+- `frontend/index.html` - `<main id="app">` renders `<header class="masthead">`, then
+  `#mode-select` (three buttons: `#mode-idea-btn` enabled, `#mode-ongelma-btn` and
+  `#mode-aivoriihi-btn` disabled), then `#mittakaava-select` (`hidden`, four scope
+  buttons), then `#idea-form` (`hidden`), `#chat` (`hidden`, now also holding
+  `#case-heading`), `#report` (`hidden`) - P0-P2's combined output, live in `main`.
+- `frontend/app.js` - `state = { sessionId: null, mittakaava: null }`; the full
+  mode-select → mittakaava-select → idea-form chain is wired; `POST /api/sessions`
+  sends `{ idea, mittakaava }`.
+- `app/models.py`/`app/core/engine.py`/`app/main.py`/`app/prompts/question.py`/
+  `app/core/criteria.py` - `Mittakaava` threads end to end from the request body to
+  the question-generation prompt (P2's frozen contract, `done/P2-...md`).
+- `../../DECISIONS/D7-mode-selector.md`, `D8-aivoriihi-theme-menu.md`,
+  `D9-question-design-principle.md` - binding decisions and rationale.
 - `ROADMAP.md` R1.5 - this plan's roadmap anchor.
 
-What later phases inherit: nothing yet — this is the first and only phase.
+What later phases inherit:
+- P0/P1's `.mode-select-label`/`.mode-choices`/`.mode-choice` classes.
+- P2's `Mittakaava` Literal and `MITTAKAAVA_FRAMING` dict - any later prompt needing
+  scope-awareness extends these, not a second mapping.
+- P3 (below) needs no new inherited contract - it reads fields P2 already returns.
 
 ## Scoped phases
 
-## Phase P0 - Mode selector screen
-
-**Status:** planned.
-**Depends on:** `interrogation-ui` Phase P0 (design tokens), done.
-**Scope:** add `#mode-select`, a new section shown on load, before `#idea-form`, with
-two stamp-style choice buttons: "Idea" and "Ongelma". Choosing "Idea" hides
-`#mode-select` and shows `#idea-form` exactly as it behaves today (no change to that
-flow). "Ongelma" is rendered as a visibly disabled control with a short label
-explaining it is not yet available.
-**Expected gate level:** standard — no API/schema change, no invariant touched, purely
-additive frontend markup/JS/CSS.
-
-**Current state / reason:**
-- No mode-selection concept exists anywhere in `frontend/` today; `#idea-form` is
-  always the first visible screen.
-
-**Likely areas to touch:**
-- `frontend/index.html` - new `#mode-select` section, markup for the two choices.
-- `frontend/app.js` - a small click handler toggling `#mode-select`/`#idea-form`
-  visibility for the "Idea" choice; the "Ongelma" control needs no handler beyond
-  `disabled`/non-interactive styling.
-- `frontend/style.css` - new rules for the two choice controls, reusing D1's tokens.
-
-**Must not:**
-- Add any backend call, route, or `app/` change for "Ongelma" — it must not pretend to
-  start a process it cannot run.
-- Change `#idea-form`, `#chat`, or `#report`'s existing markup, CSS, or JS.
-- Add a build step or new dependency.
-
-**Verification shape:**
-- Manual browser check: on load, `#mode-select` appears first with both choices
-  visible; "Ongelma" is clearly non-interactive/disabled-looking and does not navigate
-  anywhere; "Idea" reveals `#idea-form` and the existing idea-submission flow works
-  exactly as before, end to end through a full session.
-
-**Exit:** `#mode-select` is the app's first screen; "Idea" reaches the unchanged §3
-flow; "Ongelma" is honestly non-functional.
-**Move-on gate:** browser-verified by the user.
+See `phases/P3-area-cap-advance-signal.md` for the currently active, fully detailed
+phase - detailed directly since its scope and current code were already fully
+verified during P2's own testing session.
 
 ## Carry-overs / deferred
 
 - Making "Ongelma" functional - depends on `Visio.md` §2a being resolved (`ROADMAP.md`
   R4: stopping criterion, question logic) and scoped as its own plan.
+- Making "Aivoriihi" functional, including its theme menu (D8: pick a validated
+  ongelma or give one directly) - depends on `Visio.md` §2b being resolved
+  (`ROADMAP.md` R5) and scoped as its own plan.
+- Nesting mittakaava's sub-scopes (oma/tiimi/organisaatio within "sisäinen toiminta";
+  korjaava/ehkäisevä within "toimitus", `Visio.md` §1.2) - not yet its own UI control;
+  only the four top-level buckets are selectable in this phase.
 - Any styling/behavior change to `#idea-form`, `#chat`, `#report` - out of this plan,
   covered by `interrogation-ui`.

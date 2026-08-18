@@ -16,6 +16,13 @@ Recommendation = Literal["jatka", "kehita_lisaa", "hylkaa"]
 
 RiskPriority = Literal["high", "medium", "low"]
 
+Mittakaava = Literal[
+    "sisainen_toiminta",
+    "toimitus",
+    "uusi_ominaisuus",
+    "uusi_ratkaisu",
+]
+
 
 class Message(BaseModel):
     role: Literal["user", "assistant"]
@@ -75,6 +82,7 @@ class Report(BaseModel):
 
 class Session(BaseModel):
     id: str
+    mittakaava: Mittakaava
     idea: str
     status: Literal["active", "done"] = "active"
     current_area_index: int = 0

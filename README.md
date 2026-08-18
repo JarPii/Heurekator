@@ -41,6 +41,6 @@ Avaa selaimessa `http://localhost:8000`. Jos portti 8000 on jo varattu (esim. VS
 
 ## API
 
-- `POST /api/sessions` `{idea}` → `{session_id, question}`
+- `POST /api/sessions` `{idea, mittakaava}` → `{session_id, question}`
 - `POST /api/sessions/{id}/answer` `{answer}` → `{done: false, question, area_index, verdict}` tai `{done: true, report}`
 - `GET /api/sessions/{id}` → koko session tila (debuggaukseen)

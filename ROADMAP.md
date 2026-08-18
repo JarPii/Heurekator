@@ -40,19 +40,32 @@ gate-taso nousi `full`:iin tämän takia.
 **Miksi tässä kohtaa:** pienin ja itsenäisin jäljellä oleva vaihe. Parantaa myös §8
 kohdan 2 ("oma käyttö") kokemusta heti, ilman että se odottaa mitään muuta.
 
-### R1.5 — Tilan valintanäyttö (D7)
-**Perustuu:** D7.
+### R1.5 — Etusivu ja aloitusvalinnat (D7, D8, D9)
+**Perustuu:** D7, laajennettu D8:lla (aivoriihen teemavalikko) ja D9:llä (kysymysten
+muotoiluperiaate).
 **Riippuu:** R1 (jakaa saman `frontend/`-token/tyylipohjan, D1:n suunta).
-**Tila: ei vielä skoopattu.** Uusi näyttö sovelluksen aloitussivuksi ennen
-`#idea-form`:ia, kaksi valintaa: "Idea" (johtaa olemassa olevaan §3-validointiin
-sellaisenaan) ja "Ongelma" (näkyy, mutta selvästi merkitty ei-vielä-toteutetuksi —
-`REPO-RULES.md` §2:n sallima, eksplisiittisesti merkitty degraded path). Ei rakenna
-§2a:n kysymyslogiikkaa — se on yhä R4:n vastuulla.
+**Tila: ei vielä skoopattu.** Uusi etusivu sovelluksen aloitusnäytöksi ennen
+`#idea-form`:ia. Ensimmäinen valinta, kolme vaihtoehtoa (`Visio.md` §1.2): "Idea"
+(johtaa olemassa olevaan §3-validointiin sellaisenaan), "Ongelma" ja "Aivoriihi"
+(molemmat näkyvät, mutta selvästi merkitty ei-vielä-toteutetuiksi —
+`REPO-RULES.md` §2:n sallima, eksplisiittisesti merkitty degraded path — kunnes
+niiden taustalla oleva logiikka on ratkaistu: "Ongelma" R4:ssä, "Aivoriihi" R5:ssä).
+Valinnan jälkeen toinen valintaruutu mittakaavalle (sisäinen toiminta / toimitus /
+uusi ominaisuus / uusi ratkaisu) — kaapataan käyttöliittymässä varhain, vaikka mikään
+myöhempi vaihe ei vielä kuluta sitä. Ei rakenna §2a:n tai §2b:n kysymyslogiikkaa —
+ne ovat yhä R4:n ja R5:n vastuulla.
+**Ei vielä ratkaistu skoopatessa:** mihin tietomalliin mittakaava-valinta
+tallennetaan ennen kuin R3:n `Idea`-malli on olemassa — provisorinen kenttä
+`Session`:iin joka siirtyy R3:n myötä, vai odotetaanko R3:a ennen tätä osaa? Tämä
+ratkaistaan `PLAN-AUTHORING-SCOPING.md`:n mukaisessa scoping-keskustelussa kun tämä
+vaihe otetaan toteutukseen.
 **Miksi tässä kohtaa:** paljasti käyttäjätestauksessa (D7:n tausta) ettei sovellus
-tarjoa mitään reittiä ongelman validointiin, vaikka `Visio.md` §1.1 kuvaa sen omana
-vaiheenaan ennen ideaa. Tekee tämän puutteen näkyväksi käyttäjälle heti, ilman että
-mitään §2a:n ratkaisemattomista kysymyksistä (pysähtymiskriteeri, kysymyslogiikka)
-tarvitsee ratkaista tässä vaiheessa.
+tarjoa mitään reittiä ongelman validointiin tai aivoriiheen, vaikka `Visio.md` §1.1
+kuvaa ne omina vaiheinaan ennen ideaa. Käyttäjä halusi tämän valintakyvyn näkyviin
+mahdollisimman varhain — tekee puutteen näkyväksi ja kaappaa mittakaava-valinnan heti,
+ilman että mitään §2a:n tai §2b:n ratkaisemattomista kysymyksistä
+(pysähtymiskriteeri, kysymyslogiikka, puutteellisen-yhteenvedon täsmällinen
+määritelmä aivoriihessä) tarvitsee ratkaista tässä vaiheessa.
 
 ### R2 — Nelikielisyys (D3)
 **Perustuu:** D3.

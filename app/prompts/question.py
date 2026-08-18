@@ -1,5 +1,5 @@
-from app.core.criteria import Area
-from app.models import Evaluation, Message
+from app.core.criteria import MITTAKAAVA_FRAMING, Area
+from app.models import Evaluation, Message, Mittakaava
 
 SYSTEM = (
     "Olet Heurekator, sokraattinen ideanarviointityökalu. Tehtäväsi on esittää "
@@ -14,10 +14,12 @@ def build_question_prompt(
     area: Area,
     history: list[Message],
     last_evaluation: Evaluation | None,
+    mittakaava: Mittakaava,
 ) -> tuple[str, list[Message]]:
     context_lines = [
         f"Idea: {idea}",
         f"Käsiteltävä osa-alue: {area.label} ({area.seed_question})",
+        MITTAKAAVA_FRAMING[mittakaava],
     ]
     if last_evaluation is not None:
         context_lines.append(

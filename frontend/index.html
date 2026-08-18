@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Heurekator</title>
-<link rel="stylesheet" href="/style.css" />
+<link rel="stylesheet" href="/style.css?v=4" />
 </head>
 <body>
 <main id="app">
@@ -17,6 +17,17 @@
     <div class="mode-choices">
       <button id="mode-idea-btn" class="mode-choice">Idea</button>
       <button id="mode-ongelma-btn" class="mode-choice" disabled title="Ei vielä toteutettu">Ongelma <span class="mode-choice-note">(tulossa)</span></button>
+      <button id="mode-aivoriihi-btn" class="mode-choice" disabled title="Ei vielä toteutettu">Aivoriihi <span class="mode-choice-note">(tulossa)</span></button>
+    </div>
+  </section>
+
+  <section id="mittakaava-select" hidden>
+    <p class="mode-select-label">Mikä on mittakaava?</p>
+    <div class="mode-choices">
+      <button class="mode-choice" data-mittakaava="sisainen_toiminta">Sisäinen toiminta</button>
+      <button class="mode-choice" data-mittakaava="toimitus">Toimitus</button>
+      <button class="mode-choice" data-mittakaava="uusi_ominaisuus">Uusi ominaisuus</button>
+      <button class="mode-choice" data-mittakaava="uusi_ratkaisu">Uusi ratkaisu</button>
     </div>
   </section>
 
@@ -27,6 +38,10 @@
   </section>
 
   <section id="chat" hidden>
+    <div id="case-heading" class="case-heading">
+      <p class="case-heading-label">Käsittelyssä</p>
+      <p id="case-heading-text" class="case-heading-text"></p>
+    </div>
     <div id="messages"></div>
     <form id="answer-form">
       <textarea id="answer" rows="3" placeholder="Vastauksesi..."></textarea>

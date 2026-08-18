@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+from app.models import Mittakaava
+
 
 @dataclass(frozen=True)
 class Area:
@@ -30,3 +32,29 @@ EVALUATION_CRITERIA: list[str] = [
 
 # Estää loputtoman silmukan, jos malli ei koskaan päädy "kestävä"-arvioon.
 MAX_ATTEMPTS_PER_AREA = 3
+
+# Vision-dokumentin §1.2 / DECISIONS/LOG.md D9 -periaate (a): kysymyksen mittakaava
+# perustuu käyttäjän aloitusvalintoihin. Yksi lause per mittakaava, liitetään
+# jokaiseen kysymyspromptiin (app/prompts/question.py).
+MITTAKAAVA_FRAMING: dict[Mittakaava, str] = {
+    "sisainen_toiminta": (
+        "Mittakaava: sisäinen toiminta (oman, tiimin, tai koko organisaation "
+        "toiminnan kehittäminen). Älä kysy markkinakokoa, myyntipotentiaalia tai "
+        "ulkoisten asiakkaiden määrää — keskity sisäiseen hyötyyn, käyttöönottoon "
+        "ja resursseihin."
+    ),
+    "toimitus": (
+        "Mittakaava: toimitusprojektin ongelma (korjaava tai ehkäisevä "
+        "toimenpide). Kysy toimitusprojektin kontekstista, asiakasvaikutuksesta ja "
+        "aikataulupaineesta — ei yleistä markkinakokoa."
+    ),
+    "uusi_ominaisuus": (
+        "Mittakaava: laajennus olemassa olevaan toimitukseen. Kysy miten tämä "
+        "sopii nykyiseen tarjontaan ja mille asiakassegmentille ominaisuus on "
+        "suunnattu."
+    ),
+    "uusi_ratkaisu": (
+        "Mittakaava: kokonaan uusi, mahdollisesti myytävä ratkaisu. Markkinakoko, "
+        "kohderyhmän laajuus ja kilpailutilanne ovat relevantteja kysymyksiä."
+    ),
+}
