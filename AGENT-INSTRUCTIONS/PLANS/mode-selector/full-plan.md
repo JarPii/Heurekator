@@ -1,6 +1,6 @@
 # Mode Selector Plan
 
-> **Status:** scoped forward plan - revised 2026-08-18 on branch main.
+> **Status:** complete - all phases done, revised 2026-08-18 on branch main.
 > **Scope:** `ROADMAP.md` R1.5 (D7, extended by D8/D9). `#mode-select`, shown before
 > `#idea-form` on app load: three choices, "Idea", "Ongelma", "Aivoriihi". "Idea" routes
 > into the existing, unchanged §3 flow (`#idea-form` → `#chat` → `#report`). "Ongelma"
@@ -27,10 +27,10 @@
 > - **Part 2 - Mittakaava-aware questions.** Send the mittakaava choice to the
 >   backend and use it to scale the question-generation prompt (D9). Done.
 > - **Part 3 - Area-cap advance signal.** Make the existing `MAX_ATTEMPTS_PER_AREA`
->   gate visible to the user, client-side only.
+>   gate visible to the user, client-side only. Done.
 >
-> **How to use this plan:** P0, P1, and P2 are done and compressed (`done/`). P3 is
-> detailed to implementation grade — see `phases/P3-area-cap-advance-signal.md`.
+> **How to use this plan:** all phases (P0-P3) are done and compressed (`done/`). This
+> plan is complete - no active phase remains.
 
 ## Why this plan exists
 
@@ -56,13 +56,13 @@ work, same shape as P0.
 | P0 | Mode selector screen (Idea/Ongelma) | done | standard | `interrogation-ui` P0 (tokens) | `done/P0-mode-selector.md` | `#mode-select` shown first; "Idea" reaches existing flow unchanged; "Ongelma" visibly disabled | browser-verified: both choices behave as specified, existing Idea flow unregressed |
 | P1 | Third choice (Aivoriihi) + mittakaava screen | done | standard | P0 | `done/P1-mittakaava-and-aivoriihi.md` | `#mode-select` has three choices; `#mittakaava-select` captures scope before `#idea-form` | browser-verified: all three choices behave as specified, mittakaava screen captures a choice and reaches the unchanged idea flow |
 | P2 | Mittakaava-aware question framing | done | full | P1 | `done/P2-mittakaava-aware-questions.md` | `POST /api/sessions` accepts `mittakaava`; the question-generation prompt scales by it | browser-verified for "sisäinen toiminta"; "uusi ratkaisu" not independently re-verified (see `done/P2-...md`) |
-| P3 | Area-cap advance signal | active | standard | P2 | `phases/P3-area-cap-advance-signal.md` | a visible note explains when an area advanced because the 3-attempt cap was hit, not a `kestävä` verdict | browser-verified: note appears only on cap-forced advances, never on genuine `kestävä` advances |
+| P3 | Area-cap advance signal | done | standard | P2 | `done/P3-area-cap-advance-signal.md` | a visible note explains when an area advanced because the 3-attempt cap was hit, not a `kestävä` verdict | user-confirmed: cap-forced advance shows the note; the genuine-`kestävä`/no-note case follows the same logic but was not independently re-walked (see `done/P3-...md`) |
 
-P0, P1, and P2 are done. P3 was scoped mid-session: live testing during P2's
-verification surfaced that `MAX_ATTEMPTS_PER_AREA`'s existing gate (`app/core/
-criteria.py`) has no visible signal, so the user couldn't tell why a conversation
-"felt short." P3 makes that already-existing gate visible, purely client-side — no
-backend change. If `Visio.md` §2a or §2b are later solved (R4/R5),
+P0, P1, P2, and P3 are done - this plan is complete. P3 was scoped mid-session: live
+testing during P2's verification surfaced that `MAX_ATTEMPTS_PER_AREA`'s existing gate
+(`app/core/criteria.py`) has no visible signal, so the user couldn't tell why a
+conversation "felt short." P3 made that already-existing gate visible, purely
+client-side — no backend change. If `Visio.md` §2a or §2b are later solved (R4/R5),
 "Ongelma"/"Aivoriihi" becoming real is a new plan, not an extension of this one, since
 it adds real backend logic this plan explicitly excludes.
 
@@ -125,9 +125,7 @@ What later phases inherit:
 
 ## Scoped phases
 
-See `phases/P3-area-cap-advance-signal.md` for the currently active, fully detailed
-phase - detailed directly since its scope and current code were already fully
-verified during P2's own testing session.
+None active - P0-P3 are all done and compressed into `done/`. This plan is complete.
 
 ## Carry-overs / deferred
 

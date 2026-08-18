@@ -44,7 +44,10 @@ kohdan 2 ("oma käyttö") kokemusta heti, ilman että se odottaa mitään muuta.
 **Perustuu:** D7, laajennettu D8:lla (aivoriihen teemavalikko) ja D9:llä (kysymysten
 muotoiluperiaate).
 **Riippuu:** R1 (jakaa saman `frontend/`-token/tyylipohjan, D1:n suunta).
-**Tila: ei vielä skoopattu.** Uusi etusivu sovelluksen aloitusnäytöksi ennen
+**Tila: valmis (2026-08-18).** `AGENT-INSTRUCTIONS/PLANS/mode-selector/full-plan.md` —
+neljä vaihetta (P0 kaksivalintainen valitsin, P1 kolmas valinta + mittakaava-ruutu, P2
+mittakaava-tietoiset kysymykset, P3 alue-katon näkyväksi tekevä huomautus), kaikki
+toteutettu ja käyttäjän vahvistamat. Uusi etusivu sovelluksen aloitusnäytöksi ennen
 `#idea-form`:ia. Ensimmäinen valinta, kolme vaihtoehtoa (`Visio.md` §1.2): "Idea"
 (johtaa olemassa olevaan §3-validointiin sellaisenaan), "Ongelma" ja "Aivoriihi"
 (molemmat näkyvät, mutta selvästi merkitty ei-vielä-toteutetuiksi —
