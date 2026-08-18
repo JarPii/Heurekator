@@ -69,6 +69,11 @@ Heurekator/
                             FastAPI's StaticFiles mount at "/"
   data/sessions/            one JSON file per session, written by JSONFileStore
                              (gitignored — local runtime state, not source)
+  e2e/                      Playwright E2E suite (D10) — own package.json, not part of
+                            `frontend/`'s buildless static assets or `app/`'s Python deps
+    playwright.config.js      baseURL http://localhost:8000; webServer reuses an
+                               already-running dev server if present
+    tests/                     one spec per WORKFLOWS/MAP.md workflow
   AGENT-INSTRUCTIONS/        this package
   Visio.md                   the project's vision document (internal-use scope, v0.7)
   requirements.txt, .env.example, README.md
@@ -109,20 +114,34 @@ listing rather than build a throwaway session-only listing first (see D4's narra
 
 ## 3. Canonical verification commands
 
-**Gap: no automated test suite exists.** There is no `tests/` directory, no `pytest`
-config, no `Makefile`, and no `.github/workflows/` — nothing in the repo defines a
-repeatable, scripted way to prove a change works. The only verification done so far was
-manual: starting the server and exercising the HTTP API by hand (`curl`) during
-development. This should be treated as an open gap, not filled in with an invented
+**No unit/integration test suite exists for `app/`.** There is no `tests/` directory,
+no `pytest` config, no `Makefile`, and no `.github/workflows/`. The only backend
+verification is manual: starting the server and exercising the HTTP API by hand
+(`curl`) during development. Treated as an open gap, not filled in with an invented
 command.
 
 ```bash
-# run the app (the closest thing to a verification command that exists today)
+# run the app
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 cp .env.example .env   # then fill in MISTRAL_API_KEY (or ANTHROPIC_API_KEY + LLM_PROVIDER=anthropic)
 uvicorn app.main:app --reload
+```
+
+**E2E: Playwright (`e2e/`, `DECISIONS/D10-playwright-e2e-suite.md`).** One spec per
+`WORKFLOWS/MAP.md` workflow. There is no mock LLM mode, so every run makes real
+provider calls against whatever key `.env` holds — runs are slow (multi-minute) and
+consume real API quota. `playwright.config.js`'s `webServer` reuses an already-running
+`uvicorn` dev server if one is up on `:8000`, otherwise starts one itself.
+
+```bash
+cd e2e
+npm install
+npx playwright install chromium   # first run only; --with-deps needs root, skip it
+                                   # if the sandbox has no sudo and the browser still
+                                   # launches (verify with `npx playwright test`)
+npx playwright test
 ```
 
 Prerequisites: a real `MISTRAL_API_KEY` or `ANTHROPIC_API_KEY` — every request the

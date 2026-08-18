@@ -30,8 +30,9 @@
 ### R1 — Kuulustelupöytäkirja-UI:n toteutus
 **Perustuu:** D1 (UI-suunta), uusi brändi-ilme (`Heurekator_logo*.png`, repon juuressa).
 **Riippuu:** ei mistään kesken olevasta päätöksestä.
-**Tila: skoopattu.** `AGENT-INSTRUCTIONS/PLANS/interrogation-ui/full-plan.md` — neljä
-vaihetta (P0 tokenit/masthead, P1 idea sisään, P2 kuulustelu, P3 raportti).
+**Tila: P0-P2 valmiit, P3 (raportti) skoopattu muttei vielä detaljoitu.**
+`AGENT-INSTRUCTIONS/PLANS/interrogation-ui/full-plan.md` — neljä vaihetta (P0
+tokenit/masthead, P1 idea sisään, P2 kuulustelu, P3 raportti).
 Skoopatessa löytyi tarkennus alkuperäiseen "ei backend-muutoksia" -oletukseen:
 `submit_answer` ei tällä hetkellä palauta juuri annetun vastauksen verdiktiä
 frontendille, joten D1:n leimasin-hetki ei voisi näkyä elävänä kesken kuulustelun.

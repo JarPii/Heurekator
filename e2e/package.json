@@ -1,0 +1,13 @@
+{
+  "name": "heurekator-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright E2E suite for Heurekator (AGENT-INSTRUCTIONS/DECISIONS/D10-playwright-e2e-suite.md)",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@playwright/test": "^1.62.1"
+  }
+}

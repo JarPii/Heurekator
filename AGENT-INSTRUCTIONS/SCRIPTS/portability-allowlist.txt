@@ -123,6 +123,7 @@ ARCHITECTURE.md
 Dockerfile
 Makefile
 tests/
+e2e/
 env
 env.example
 github/workflows/

@@ -18,11 +18,10 @@
 > - **Part B - Interrogation (chat) screen.** `#chat`.
 > - **Part C - Report screen.** `#report`.
 >
-> **How to use this plan:** the per-turn verdict stamp question below is settled (D6,
-> option B) — Phase P2 now includes one small `app/` change alongside the frontend
-> work. Discuss and edit phase boundaries first. When implementing, first shape the
-> selected phase (outcome, boundaries, tradeoffs), then expand exactly one settled
-> phase into an implementation-grade phase from current code before coding.
+> **How to use this plan:** P0-P2 are done and compressed (`done/`). P3 ("Report
+> screen") is the only phase left, not yet detailed to implementation grade — shape it
+> (outcome, boundaries, tradeoffs), then expand it into an implementation-grade phase
+> from current code before coding.
 
 ## Why this plan exists
 
@@ -66,12 +65,11 @@ detailed (`PLAN-PHASE-DETAILING.md`), not here.
 |---|---|---|---|---|---|---|---|
 | P0 | Design tokens + brand shell | done | standard | - | `done/P0-design-tokens-brand-shell.md` | shared CSS tokens + masthead (logo, palette, type) exist; no screen content restyled yet | browser-verified: page loads with new palette/logo, all three sections still function |
 | P1 | Idea intake screen | done | standard | P0 | `done/P1-idea-intake-screen.md` | `#idea-form` matches the direction | browser-verified: full idea-submission flow unchanged |
-| P2 | Interrogation (chat) screen | active | full (D6) | P0 | `phases/P2-interrogation-chat-screen.md` | `#chat` matches the direction; area progress track shown; live per-turn verdict stamp | browser-verified: full session runs through all 7 areas to completion |
+| P2 | Interrogation (chat) screen | done | full (D6) | P0 | `done/P2-interrogation-chat-screen.md` | `#chat` matches the direction; area progress track shown; live per-turn verdict stamp | user-verified (styling) + automated (`e2e/tests/socratic-loop.spec.js`, D10): full session runs through all 7 areas to completion |
 | P3 | Report screen | planned | standard | P0 | - | `#report` matches the direction | browser-verified: finished report renders correctly end to end |
 
-Exactly one phase is `active` at a time. P0 and P1 are done; P2 is detailed to
-implementation grade in `phases/P2-interrogation-chat-screen.md` and ready to
-implement.
+P0-P2 are done. No phase is currently `active` — P3 needs a detailing pass
+(`PLAN-PHASE-DETAILING.md`) from current code before it is implementable.
 
 ## Implementation chunks + orchestration breakpoints
 
@@ -305,6 +303,7 @@ stamp.
   `ROADMAP.md` R2, not this plan.
 - D4 (idea lifecycle) - session listing, idea state — explicitly `ROADMAP.md` R3, not
   this plan.
-- Automated test suite - out of scope; matches the rest of the repo
-  (`../../PROJECT.md` §3).
+- Automated test suite - was out of scope for P0-P1; reversed for P2's closure by
+  `../../DECISIONS/D10-playwright-e2e-suite.md` (`e2e/` now exists,
+  `../../PROJECT.md` §3 updated).
 - A light theme - D1 committed to a single dark visual world; not added by this plan.

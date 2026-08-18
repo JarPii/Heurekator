@@ -44,3 +44,16 @@ Avaa selaimessa `http://localhost:8000`. Jos portti 8000 on jo varattu (esim. VS
 - `POST /api/sessions` `{idea, mittakaava}` → `{session_id, question}`
 - `POST /api/sessions/{id}/answer` `{answer}` → `{done: false, question, area_index, verdict}` tai `{done: true, report}`
 - `GET /api/sessions/{id}` → koko session tila (debuggaukseen)
+
+## Testaus
+
+Backendille ei ole yksikkötestisviittiä (ks. `AGENT-INSTRUCTIONS/PROJECT.md` §3). E2E on
+Playwright `e2e/`-hakemistossa — ajaa koko sovelluksen oikeita LLM-kutsuja vasten (ei
+mock-tilaa), joten ajo on hidas ja kuluttaa oikeaa API-kiintiötä:
+
+```bash
+cd e2e
+npm install
+npx playwright install chromium
+npx playwright test
+```

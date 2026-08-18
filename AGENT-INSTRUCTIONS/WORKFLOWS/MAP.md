@@ -26,15 +26,8 @@ literally):**
 
 ### Idea runs through the Socratic loop
 
-No E2E test suite exists yet (see `../PROJECT.md` §3), so these reference the FastAPI
-route handlers themselves rather than spec files — the literal route path is the
-matched text.
+1. `e2e/tests/socratic-loop.spec.js` — `idea validation session runs through all 7 areas to the report` — mode select → mittakaava select → idea intake → all 7 areas (answer → evaluate → next question, or the area-cap advance after `MAX_ATTEMPTS_PER_AREA`) → final report.
 
-1. `app/main.py` — `/api/sessions` — user submits an idea; the engine returns the first
-   question for the first `Area`.
-2. `app/main.py` — `/api/sessions/{session_id}/answer` — user answers; the engine
-   evaluates the answer and returns either another question on the same `Area`, the
-   first question of the next `Area`, or the final `Report` once every `Area` is
-   resolved.
-3. `app/main.py` — `/api/sessions/{session_id}` — fetch a session's full current state
-   (used for debugging; not part of the frontend's normal flow — see `README.md`).
+`app/main.py` — `/api/sessions/{session_id}` (fetch a session's full current state) is
+used for debugging only, not part of the frontend's normal flow (see `README.md`), so
+it is not part of this workflow.
