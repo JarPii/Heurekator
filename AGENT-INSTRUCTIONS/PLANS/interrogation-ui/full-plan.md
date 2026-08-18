@@ -19,9 +19,7 @@
 > - **Part C - Report screen.** `#report`.
 >
 > **How to use this plan:** P0-P2 are done and compressed (`done/`). P3 ("Report
-> screen") is the only phase left, not yet detailed to implementation grade — shape it
-> (outcome, boundaries, tradeoffs), then expand it into an implementation-grade phase
-> from current code before coding.
+> screen") is detailed to implementation grade — see `phases/P3-report-screen.md`.
 
 ## Why this plan exists
 
@@ -66,10 +64,10 @@ detailed (`PLAN-PHASE-DETAILING.md`), not here.
 | P0 | Design tokens + brand shell | done | standard | - | `done/P0-design-tokens-brand-shell.md` | shared CSS tokens + masthead (logo, palette, type) exist; no screen content restyled yet | browser-verified: page loads with new palette/logo, all three sections still function |
 | P1 | Idea intake screen | done | standard | P0 | `done/P1-idea-intake-screen.md` | `#idea-form` matches the direction | browser-verified: full idea-submission flow unchanged |
 | P2 | Interrogation (chat) screen | done | full (D6) | P0 | `done/P2-interrogation-chat-screen.md` | `#chat` matches the direction; area progress track shown; live per-turn verdict stamp | user-verified (styling) + automated (`e2e/tests/socratic-loop.spec.js`, D10): full session runs through all 7 areas to completion |
-| P3 | Report screen | planned | standard | P0 | - | `#report` matches the direction | browser-verified: finished report renders correctly end to end |
+| P3 | Report screen | active | standard | P0 | `phases/P3-report-screen.md` | `#report` matches the direction | browser-verified: finished report renders correctly end to end |
 
-P0-P2 are done. No phase is currently `active` — P3 needs a detailing pass
-(`PLAN-PHASE-DETAILING.md`) from current code before it is implementable.
+P0-P2 are done. P3 is detailed to implementation grade in
+`phases/P3-report-screen.md` and ready to implement.
 
 ## Implementation chunks + orchestration breakpoints
 
